@@ -1,0 +1,58 @@
+﻿@model Obligatorisk1.Models.Component
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Component</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ComponentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ComponentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ComponentInfo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ComponentInfo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Datasheet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Datasheet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ManufacturerLink)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ManufacturerLink)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
