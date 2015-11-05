@@ -78,6 +78,7 @@ namespace Obligatorisk1.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Categories = db.Categories.AsNoTracking().ToList();
             return View(component);
         }
 
@@ -86,7 +87,7 @@ namespace Obligatorisk1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ComponentName,ComponentInfo,Datasheet,Image,ManufacturerLink")] Component component)
+        public ActionResult Edit([Bind(Include = "Id,ComponentName,ComponentInfo,Datasheet,Image,ManufacturerLink,CategoryId")] Component component)
         {
 
             if (ModelState.IsValid)
@@ -131,6 +132,20 @@ namespace Obligatorisk1.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult Lend(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Component component = db.Components.Find(id);
+            if (component == null)
+            {
+                return HttpNotFound();
+            }
+            return View(component);
         }
     }
 }

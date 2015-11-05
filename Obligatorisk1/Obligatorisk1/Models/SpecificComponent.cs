@@ -8,5 +8,6 @@ namespace Obligatorisk1.Models
         public int Id { get; set; }
         public int ComponentNumber { get; set; }
         public string SerieNr { get; set; }
+        public LoanInformation LoanInformation { get; set; }
     }
 }
