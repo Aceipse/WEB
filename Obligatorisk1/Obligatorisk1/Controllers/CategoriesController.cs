@@ -10,6 +10,7 @@ using Obligatorisk1.Models;
 
 namespace Obligatorisk1.Controllers
 {
+    [Authorize]
     public class CategoriesController : Controller
     {
         private DatabaseContext db = new DatabaseContext();
