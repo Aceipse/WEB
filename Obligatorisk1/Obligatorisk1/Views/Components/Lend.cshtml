@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "title";
+    int ChoosenId = 0;
 }
 
 <h2>Lend out component</h2>
@@ -84,20 +85,81 @@
                 @Html.DisplayFor(modelItem => item.LoanInformation.User.StudieNumber)
             </td>
             <td>
-                <button class="btn btn-default" onclick="$('#LendModal').modal.toggle()">Lend Out</button>
+                <button class="btn btn-default" onclick="$('#LendModal').modal('show'); @{ ChoosenId = item.Id; }">Lend Out</button>
             </td>
         </tr>
     }
 
 </table>
 
-<div class="modal fade" id="LendModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="false" data-keyboard="false">
+<div class="modal fade" id="LendModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="true" data-keyboard="false">
     <div class="modal-dialog center">
         <div class="modal-content modal-heigh">
             <div class="modal-body">
-                <form>
-                    Nigger please
-                </form>
+                @using (Html.BeginForm("EditeLoanInformation"))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <h4>Loan Informations</h4>
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.SpecificComponent.First(x => x.Id == ChoosenId).LoanInformation.Id)
+                        <input hidden name="EditLoanInformation" value="@Model.Id"/>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SpecificComponent.First(x => x.Id == ChoosenId).LoanInformation.LoanDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.SpecificComponent.First(x => x.Id == ChoosenId).LoanInformation.LoanDate, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.SpecificComponent.First(x => x.Id == ChoosenId).LoanInformation.LoanDate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SpecificComponent.First(x => x.Id == ChoosenId).LoanInformation.ReservationDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model =>model.SpecificComponent.First(x => x.Id == ChoosenId).LoanInformation.ReservationDate, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.SpecificComponent.First(x => x.Id == ChoosenId).LoanInformation.ReservationDate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SpecificComponent.First(x => x.Id == ChoosenId).LoanInformation.ReturnDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.SpecificComponent.First(x => x.Id == ChoosenId).LoanInformation.ReturnDate, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.SpecificComponent.First(x => x.Id == ChoosenId).LoanInformation.ReturnDate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SpecificComponent.First(x => x.Id == ChoosenId).LoanInformation.User.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.SpecificComponent.First(x => x.Id == ChoosenId).LoanInformation.User.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.SpecificComponent.First(x => x.Id == ChoosenId).LoanInformation.User.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SpecificComponent.First(x => x.Id == ChoosenId).LoanInformation.User.StudieNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.SpecificComponent.First(x => x.Id == ChoosenId).LoanInformation.User.StudieNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.SpecificComponent.First(x => x.Id == ChoosenId).LoanInformation.User.StudieNumber, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SpecificComponent.First(x => x.Id == ChoosenId).LoanInformation.User.MobileNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.SpecificComponent.First(x => x.Id == ChoosenId).LoanInformation.User.MobileNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.SpecificComponent.First(x => x.Id == ChoosenId).LoanInformation.User.MobileNumber, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Save" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>

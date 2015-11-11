@@ -167,5 +167,15 @@ namespace Obligatorisk1.Controllers
             }
             return View(component);
         }
+
+        public ActionResult EditLoanInformation(int componentId, LoanInformation loan)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(loan).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Lend", new { id = componentId });
+        }
     }
 }
