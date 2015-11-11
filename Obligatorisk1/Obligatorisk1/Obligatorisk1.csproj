@@ -175,6 +175,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511111310397_InitialCreate.cs" />
+    <Compile Include="Migrations\201511111310397_InitialCreate.Designer.cs">
+      <DependentUpon>201511111310397_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511111320043_addedimagemimetype.cs" />
+    <Compile Include="Migrations\201511111320043_addedimagemimetype.Designer.cs">
+      <DependentUpon>201511111320043_addedimagemimetype.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Component.cs" />
@@ -265,6 +274,14 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201511111310397_InitialCreate.resx">
+      <DependentUpon>201511111310397_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511111320043_addedimagemimetype.resx">
+      <DependentUpon>201511111320043_addedimagemimetype.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

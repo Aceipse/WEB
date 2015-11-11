@@ -19,6 +19,7 @@ namespace Obligatorisk1.Models
         public Category Category { get; set; }
         public string Datasheet { get; set; }
         public byte[] Image { get; set; }
+        public string ImageMimeType { get; set; }
         public string ManufacturerLink { get; set; }
         public List<ComponentComment> ComponentComments { get; set; }
     }

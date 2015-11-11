@@ -74,6 +74,7 @@ namespace Obligatorisk1.Controllers
 
                 if (componentVm.Image != null)
                 {
+                    componentVm.Component.ImageMimeType = componentVm.Image.ContentType;
                     componentVm.Component.Image = new byte[componentVm.Image.ContentLength];
                     componentVm.Image.InputStream.Read(componentVm.Component.Image, 0, componentVm.Image.ContentLength);
                 }
@@ -138,7 +139,7 @@ namespace Obligatorisk1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Component component = db.Components.Find(id);
+            Component component = db.Components.Include(x=>x.SpecificComponent).Include(x=>x.Category).FirstOrDefault(x=>x.Id==id);
             db.Components.Remove(component);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -166,6 +167,18 @@ namespace Obligatorisk1.Controllers
                 return HttpNotFound();
             }
             return View(component);
+        }
+        public FileContentResult GetImage(int componentId)
+        {
+            Component component = db.Components.FirstOrDefault(x => x.Id == componentId);
+            if (component != null)
+            {
+                return File(component.Image, component.ImageMimeType);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public ActionResult EditLoanInformation(int componentId, LoanInformation loan)
