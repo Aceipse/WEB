@@ -18,7 +18,7 @@ namespace Obligatorisk1.Models
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
         public string Datasheet { get; set; }
-        public string Image { get; set; }
+        public byte[] Image { get; set; }
         public string ManufacturerLink { get; set; }
         public List<ComponentComment> ComponentComments { get; set; }
     }

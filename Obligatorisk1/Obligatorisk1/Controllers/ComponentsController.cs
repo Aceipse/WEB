@@ -66,10 +66,17 @@ namespace Obligatorisk1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateComponentViewmodel componentVm)
         {
-            componentVm.Component.SpecificComponent = new List<SpecificComponent>();
-            componentVm.Component.SpecificComponent = new JavaScriptSerializer().Deserialize<List<SpecificComponent>>(componentVm.SpecificComponentListAsJson);
+            
             if (ModelState.IsValid)
             {
+                componentVm.Component.SpecificComponent = new List<SpecificComponent>();
+                componentVm.Component.SpecificComponent = new JavaScriptSerializer().Deserialize<List<SpecificComponent>>(componentVm.SpecificComponentListAsJson);
+
+                if (componentVm.Image != null)
+                {
+                    componentVm.Component.Image = new byte[componentVm.Image.ContentLength];
+                    componentVm.Image.InputStream.Read(componentVm.Component.Image, 0, componentVm.Image.ContentLength);
+                }
                 db.Components.Add(componentVm.Component);
                 db.SaveChanges();
                 return RedirectToAction("Index");

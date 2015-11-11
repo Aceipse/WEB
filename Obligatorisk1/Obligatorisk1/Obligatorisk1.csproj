@@ -175,35 +175,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201511031701246_InitialCreate.cs" />
-    <Compile Include="Migrations\201511031701246_InitialCreate.Designer.cs">
-      <DependentUpon>201511031701246_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201511050925285_InitialCreate1.cs" />
-    <Compile Include="Migrations\201511050925285_InitialCreate1.Designer.cs">
-      <DependentUpon>201511050925285_InitialCreate1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201511050931272_AddedLoanInfoToComponent.cs" />
-    <Compile Include="Migrations\201511050931272_AddedLoanInfoToComponent.Designer.cs">
-      <DependentUpon>201511050931272_AddedLoanInfoToComponent.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201511050932320_AddedLoanInfoToComponent2.cs" />
-    <Compile Include="Migrations\201511050932320_AddedLoanInfoToComponent2.Designer.cs">
-      <DependentUpon>201511050932320_AddedLoanInfoToComponent2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201511050940191_removedloantinformation.cs" />
-    <Compile Include="Migrations\201511050940191_removedloantinformation.Designer.cs">
-      <DependentUpon>201511050940191_removedloantinformation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201511051001363_MovedLoanInformationToSpecificComponent.cs" />
-    <Compile Include="Migrations\201511051001363_MovedLoanInformationToSpecificComponent.Designer.cs">
-      <DependentUpon>201511051001363_MovedLoanInformationToSpecificComponent.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201511111158054_madeLoanInformationNullable.cs" />
-    <Compile Include="Migrations\201511111158054_madeLoanInformationNullable.Designer.cs">
-      <DependentUpon>201511111158054_madeLoanInformationNullable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Component.cs" />
@@ -294,29 +265,6 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201511031701246_InitialCreate.resx">
-      <DependentUpon>201511031701246_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511050925285_InitialCreate1.resx">
-      <DependentUpon>201511050925285_InitialCreate1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511050931272_AddedLoanInfoToComponent.resx">
-      <DependentUpon>201511050931272_AddedLoanInfoToComponent.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511050932320_AddedLoanInfoToComponent2.resx">
-      <DependentUpon>201511050932320_AddedLoanInfoToComponent2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511050940191_removedloantinformation.resx">
-      <DependentUpon>201511050940191_removedloantinformation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511051001363_MovedLoanInformationToSpecificComponent.resx">
-      <DependentUpon>201511051001363_MovedLoanInformationToSpecificComponent.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511111158054_madeLoanInformationNullable.resx">
-      <DependentUpon>201511111158054_madeLoanInformationNullable.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
