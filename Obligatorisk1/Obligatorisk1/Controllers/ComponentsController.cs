@@ -13,7 +13,7 @@ using Obligatorisk1.Viewmodels;
 
 namespace Obligatorisk1.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class ComponentsController : Controller
     {
         private DatabaseContext db = new DatabaseContext();
