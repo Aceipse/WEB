@@ -11,7 +11,7 @@ using Obligatorisk1.Models;
 
 namespace Obligatorisk1.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class ComponentsController : Controller
     {
         private DatabaseContext db = new DatabaseContext();
@@ -19,7 +19,10 @@ namespace Obligatorisk1.Controllers
         // GET: Components
         public ActionResult Index(string category)
         {
-
+           var temp = User.Identity.Name;
+           var temp2 = User.Identity.AuthenticationType;
+           var temp3 = User.Identity.IsAuthenticated;
+           var temp4 = User.IsInRole("Admin");
             if (category.IsNullOrWhiteSpace())
             {
                 return View(db.Components.Include(x=>x.Category).ToList());
