@@ -24,15 +24,15 @@ namespace Obligatorisk1.Controllers
             ViewBag.Categories = db.Categories.AsNoTracking().ToList();
             if (category.IsNullOrWhiteSpace() && search.IsNullOrWhiteSpace())
             {
-                return View(db.Components.Include(x=>x.Category).ToList());
+                return View(db.Components.Include(x=>x.Category).Include(x=>x.SpecificComponent).ToList());
             }
             if (!category.IsNullOrWhiteSpace())
             {
-                return View(db.Components.Include(x => x.Category).Where(x => x.Category.Value == category).ToList());
+                return View(db.Components.Include(x => x.Category).Include(x => x.SpecificComponent).Where(x => x.Category.Value == category).ToList());
             }
             if (!search.IsNullOrWhiteSpace())
             {
-                return View(db.Components.Include(x => x.Category).Where(x => x.ComponentName.Contains(search)||x.ComponentInfo.Contains(search)).ToList());
+                return View(db.Components.Include(x => x.Category).Include(x => x.SpecificComponent).Where(x => x.ComponentName.Contains(search)||x.ComponentInfo.Contains(search)).ToList());
             }
             return HttpNotFound();
         }
@@ -85,7 +85,7 @@ namespace Obligatorisk1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Component component = db.Components.Find(id);
+            Component component = db.Components.Include(x=>x.SpecificComponent).First(x=>x.Id==id);
             if (component == null)
             {
                 return HttpNotFound();

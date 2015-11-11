@@ -199,6 +199,10 @@
     <Compile Include="Migrations\201511051001363_MovedLoanInformationToSpecificComponent.Designer.cs">
       <DependentUpon>201511051001363_MovedLoanInformationToSpecificComponent.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511111158054_madeLoanInformationNullable.cs" />
+    <Compile Include="Migrations\201511111158054_madeLoanInformationNullable.Designer.cs">
+      <DependentUpon>201511111158054_madeLoanInformationNullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -309,6 +313,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511051001363_MovedLoanInformationToSpecificComponent.resx">
       <DependentUpon>201511051001363_MovedLoanInformationToSpecificComponent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511111158054_madeLoanInformationNullable.resx">
+      <DependentUpon>201511111158054_madeLoanInformationNullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

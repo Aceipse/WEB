@@ -85,10 +85,10 @@
                     @Html.DisplayFor(modelItem => item.ManufacturerLink)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SpecificComponent.Count(x => x.LoanInformation.LoanDate == null))
+                    @item.SpecificComponent.Count(x=>x.LoanInformation==null|| x.LoanInformation.LoanDate==null)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SpecificComponent.Count(x => x.LoanInformation.LoanDate != null))
+                    @item.SpecificComponent.Count(x => x.LoanInformation!=null && x.LoanInformation.LoanDate!=null)
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
