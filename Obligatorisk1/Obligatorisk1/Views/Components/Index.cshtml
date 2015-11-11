@@ -12,19 +12,27 @@
     <div class="row">
         @Html.ActionLink("All", "Index")
     </div>
-   @foreach (Category category in ViewBag.Categories)
-   {
-       <div class="row">
-           @Html.ActionLink(category.Value,"Index",new {category=category.Value})
-       </div>
+    @foreach (Category category in ViewBag.Categories)
+    {
+        <div class="row">
+            @Html.ActionLink(category.Value, "Index", new { category = category.Value })
+        </div>
 
-   }
+    }
 </div>
 
-<div class="col-xs-6">
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
+<div class="col-xs-10">
+    <h3>Components</h3>
+
+    <div class="text-center">
+        <form>
+            <input type="text" name="search"/>
+            <button class="btn btn-primary" type="submit">Search</button>
+            @Html.ActionLink("Clear search", "Index",null, new { @class = "btn btn-primary" })
+        </form>
+    </div>
+
+    @Html.ActionLink("Create New", "Create")
 
     <table class="table">
         <tr>
@@ -45,6 +53,12 @@
             </th>
             <th>
                 Manufacturer link
+            </th>
+            <th>
+                #Available
+            </th>
+            <th>
+                #Lend out
             </th>
             <th></th>
         </tr>
@@ -71,10 +85,16 @@
                     @Html.DisplayFor(modelItem => item.ManufacturerLink)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
-                    @Html.ActionLink("Details", "Details", new {id = item.Id}) |
-                    @Html.ActionLink("Delete", "Delete", new {id = item.Id})
-                    @Html.ActionLink("Lend", "Lend", new {id = item.Id})
+                    @Html.DisplayFor(modelItem => item.SpecificComponent.Count(x => x.LoanInformation.LoanDate == null))
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SpecificComponent.Count(x => x.LoanInformation.LoanDate != null))
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })|
+                    @Html.ActionLink("Lend", "Lend", new { id = item.Id })
                 </td>
             </tr>
         }
