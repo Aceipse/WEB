@@ -27,77 +27,85 @@
     <div class="text-center">
         <form>
             <input type="text" name="search"/>
-            <button class="btn btn-primary" type="submit">Search</button>
-            @Html.ActionLink("Clear search", "Index",null, new { @class = "btn btn-primary" })
+            <button class="btn btn-default" type="submit">Search</button>
+            @Html.ActionLink("Clear search", "Index",null, new { @class = "btn btn-default" })
         </form>
     </div>
 
     @Html.ActionLink("Create New", "Create")
+    @if (Model.Any())
+    {
 
-    <table class="table">
-        <tr>
-            <th>
-                Component name
-            </th>
-            <th>
-                Category
-            </th>
-            <th>
-                Component info
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Datasheet)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image)
-            </th>
-            <th>
-                Manufacturer link
-            </th>
-            <th>
-                #Available
-            </th>
-            <th>
-                #Lend out
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
+        <table class="table">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ComponentName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category.Value)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ComponentInfo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Datasheet)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Image)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ManufacturerLink)
-                </td>
-                <td>
-                    @item.SpecificComponent.Count(x=>x.LoanInformation==null|| x.LoanInformation.LoanDate==null)
-                </td>
-                <td>
-                    @item.SpecificComponent.Count(x => x.LoanInformation!=null && x.LoanInformation.LoanDate!=null)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })|
-                    @Html.ActionLink("Lend", "Lend", new { id = item.Id })
-                </td>
+                <th>
+                    Component name
+                </th>
+                <th>
+                    Category
+                </th>
+                <th>
+                    Component info
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Datasheet)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Image)
+                </th>
+                <th>
+                    Manufacturer link
+                </th>
+                <th>
+                    #Available
+                </th>
+                <th>
+                    #Lend out
+                </th>
+                <th></th>
             </tr>
-        }
 
-    </table>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ComponentName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.Value)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ComponentInfo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Datasheet)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Image)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ManufacturerLink)
+                    </td>
+                    <td>
+                        @item.SpecificComponent.Count(x => x.LoanInformation == null || x.LoanInformation.LoanDate == null)
+                    </td>
+                    <td>
+                        @item.SpecificComponent.Count(x => x.LoanInformation != null && x.LoanInformation.LoanDate != null)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
+                        @Html.ActionLink("Details", "Details", new {id = item.Id}) |
+                        @Html.ActionLink("Delete", "Delete", new {id = item.Id})|
+                        @Html.ActionLink("Lend", "Lend", new {id = item.Id})
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    }
+    else
+    {
+        <h3>No components found</h3>
+    }
 </div>
