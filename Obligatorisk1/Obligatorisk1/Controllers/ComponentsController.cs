@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
 using Obligatorisk1.Models;
+using Obligatorisk1.Viewmodels;
 
 namespace Obligatorisk1.Controllers
 {
@@ -54,16 +55,16 @@ namespace Obligatorisk1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ComponentName,ComponentInfo,Datasheet,Image,ManufacturerLink,CategoryId")] Component component)
+        public ActionResult Create([Bind(Include = "Id,ComponentName,ComponentInfo,Datasheet,Image,ManufacturerLink,CategoryId,SpecificComponentListAsJson")] CreateComponentViewmodel componentVm)
         {
             if (ModelState.IsValid)
             {
-                db.Components.Add(component);
+                db.Components.Add(componentVm.Component);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(component);
+            return View(componentVm.Component);
         }
 
         // GET: Components/Edit/5

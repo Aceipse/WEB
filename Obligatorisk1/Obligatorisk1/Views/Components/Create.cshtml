@@ -68,6 +68,7 @@
             <div class="col-md-10">
                 <input type="text" id="componentNumber"/>
                 <input type="text" id="serieNumber"/>
+                <textarea hidden name="SpecificComponentListAsJson" id="specificComponentId"></textarea>
                 <input type="button" onclick="addSpecificComponent()" value="Add"/>
             </div>
         </div>
@@ -84,14 +85,21 @@
     var addSpecificComponent=function() {
         var currentComponentNumber = $("#componentNumber").val();
         var currentSerieNumber = $("#serieNumber").val();
-        specificComponentArray.push(currentComponentNumber + "," + currentSerieNumber);
-
+        specificComponentArray.push({ComponentNumber:currentComponentNumber,SerieNr:currentSerieNumber,LoanInformation:null});
+        createSpecificTable();
+    }
+    var deleteSpecific=function(indexOfElement) {
+        specificComponentArray.splice(indexOfElement, 1);
+        createSpecificTable();
+    }
+    var createSpecificTable = function () {
+        $("#specificComponentId").val(specificComponentArray);
         var tableHtml = "<div class='container'>";
         for (var i = 0; i < specificComponentArray.length; i++) {
             tableHtml += "<div class='row'>" +
-                "<div class='col-md-6'>" + specificComponentArray[i].split(',')[0] + "</div>" +
-                "<div class='col-md-6'>" + specificComponentArray[i].split(',')[1] + "</div>" +
-                "</div>";
+                "<div class='col-md-4'>" + specificComponentArray[i].ComponentNumber + "</div>" +
+                "<div class='col-md-4'>" + specificComponentArray[i].SerieNr + "</div>" +
+                "<div class='col-md-4'><button onclick='deleteSpecific(" + i + ")' type='button'>Delete specific</button></div></div>";
         }
         tableHtml += "</div>";
         $("#specificComponentsTable").html(tableHtml);
