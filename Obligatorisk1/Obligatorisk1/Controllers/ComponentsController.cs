@@ -152,7 +152,8 @@ namespace Obligatorisk1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Component component = db.Components.Find(id);
+            Component component = db.Components.Include(x => x.SpecificComponent).First(x => x.Id == id);
+            
             if (component == null)
             {
                 return HttpNotFound();
