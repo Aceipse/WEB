@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using Microsoft.Ajax.Utilities;
 using Obligatorisk1.Models;
 using Obligatorisk1.Viewmodels;
@@ -20,7 +21,7 @@ namespace Obligatorisk1.Controllers
         // GET: Components
         public ActionResult Index(string category)
         {
-
+            ViewBag.Categories = db.Categories.AsNoTracking().ToList();
             if (category.IsNullOrWhiteSpace())
             {
                 return View(db.Components.Include(x=>x.Category).ToList());
@@ -55,8 +56,10 @@ namespace Obligatorisk1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ComponentName,ComponentInfo,Datasheet,Image,ManufacturerLink,CategoryId,SpecificComponentListAsJson")] CreateComponentViewmodel componentVm)
+        public ActionResult Create(CreateComponentViewmodel componentVm)
         {
+            componentVm.Component.SpecificComponent = new List<SpecificComponent>();
+            componentVm.Component.SpecificComponent = new JavaScriptSerializer().Deserialize<List<SpecificComponent>>(componentVm.SpecificComponentListAsJson);
             if (ModelState.IsValid)
             {
                 db.Components.Add(componentVm.Component);
@@ -64,7 +67,7 @@ namespace Obligatorisk1.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(componentVm.Component);
+            return View(componentVm);
         }
 
         // GET: Components/Edit/5
