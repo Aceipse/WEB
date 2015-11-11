@@ -8,7 +8,7 @@ namespace Obligatorisk1.Models
 {
     public class DatabaseContext:DbContext
     {
-        public DatabaseContext()
+        public DatabaseContext():base("DefaultConnection")
         {
             this.Configuration.LazyLoadingEnabled = false;
         }
