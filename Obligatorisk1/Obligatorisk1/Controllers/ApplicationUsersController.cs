@@ -11,30 +11,39 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Obligatorisk1.Models;
+using Obligatorisk1.Viewmodels;
 
 namespace Obligatorisk1.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ApplicationUsersController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-
         // GET: ApplicationUsers
         public ActionResult Index()
         {
-            HttpContext.GetOwinContext()
-                .Get<ApplicationSignInManager>()
-                .UserManager.AddToRole(HttpContext.GetOwinContext().Get<ApplicationSignInManager>().UserManager.Users.ToList()[0].Id, "Admin");
-            return View(HttpContext.GetOwinContext().Get<ApplicationSignInManager>().UserManager.Users.ToList());
+            List<ApplicationUserViewModel> list = new List<ApplicationUserViewModel>();
+
+            foreach (var user in HttpContext.GetOwinContext().Get<ApplicationSignInManager>().UserManager.Users.ToList())
+            {
+                if (HttpContext.GetOwinContext().Get<ApplicationSignInManager>().UserManager.IsInRole(user.Id,"Admin"))
+                {
+                    list.Add(new ApplicationUserViewModel(true,user));
+                }
+                else
+                {
+                    list.Add(new ApplicationUserViewModel(false, user));
+                }
+            }
+            return View(list);
         }
 
-       
-        protected override void Dispose(bool disposing)
+        public ActionResult MakeAdmin(string id)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            HttpContext.GetOwinContext()
+               .Get<ApplicationSignInManager>()
+               .UserManager.AddToRole(id, "Admin");
+
+            return RedirectToAction("Index");
         }
     }
 }

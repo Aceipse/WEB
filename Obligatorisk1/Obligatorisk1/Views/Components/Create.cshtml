@@ -23,11 +23,11 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Category, htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.DropDownListFor(model=>model.CategoryId,new SelectList(ViewBag.Categories,"Id","Value"))
+                @Html.DropDownListFor(model => model.CategoryId, new SelectList(ViewBag.Categories, "Id", "Value"))
                 @*@Html.EditorFor(model => model.Category.Value, new { htmlAttributes = new { @class = "form-control" } })*@
-                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Category, "", new {@class = "text-danger"})
             </div>
         </div>
 
@@ -56,10 +56,20 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ManufacturerLink, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ManufacturerLink, htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ManufacturerLink, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ManufacturerLink, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ManufacturerLink, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.ManufacturerLink, "", new {@class = "text-danger"})
+            </div>
+        </div>
+        <div id="specificComponentsTable"></div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.SpecificComponent, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text" id="componentNumber"/>
+                <input type="text" id="serieNumber"/>
+                <textarea hidden name="SpecificComponentListAsJson" id="specificComponentId"></textarea>
+                <input type="button" onclick="addSpecificComponent()" value="Add"/>
             </div>
         </div>
 
@@ -70,7 +80,31 @@
         </div>
     </div>
 }
-
+<script>
+    var specificComponentArray = [];
+    var addSpecificComponent=function() {
+        var currentComponentNumber = $("#componentNumber").val();
+        var currentSerieNumber = $("#serieNumber").val();
+        specificComponentArray.push({ComponentNumber:currentComponentNumber,SerieNr:currentSerieNumber,LoanInformation:null});
+        createSpecificTable();
+    }
+    var deleteSpecific=function(indexOfElement) {
+        specificComponentArray.splice(indexOfElement, 1);
+        createSpecificTable();
+    }
+    var createSpecificTable = function () {
+        $("#specificComponentId").val(specificComponentArray);
+        var tableHtml = "<div class='container'>";
+        for (var i = 0; i < specificComponentArray.length; i++) {
+            tableHtml += "<div class='row'>" +
+                "<div class='col-md-4'>" + specificComponentArray[i].ComponentNumber + "</div>" +
+                "<div class='col-md-4'>" + specificComponentArray[i].SerieNr + "</div>" +
+                "<div class='col-md-4'><button onclick='deleteSpecific(" + i + ")' type='button'>Delete specific</button></div></div>";
+        }
+        tableHtml += "</div>";
+        $("#specificComponentsTable").html(tableHtml);
+    }
+</script>
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
