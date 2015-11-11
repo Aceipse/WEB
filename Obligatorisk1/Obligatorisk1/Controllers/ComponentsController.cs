@@ -19,14 +19,22 @@ namespace Obligatorisk1.Controllers
         private DatabaseContext db = new DatabaseContext();
 
         // GET: Components
-        public ActionResult Index(string category)
+        public ActionResult Index(string category, string search)
         {
             ViewBag.Categories = db.Categories.AsNoTracking().ToList();
-            if (category.IsNullOrWhiteSpace())
+            if (category.IsNullOrWhiteSpace() && search.IsNullOrWhiteSpace())
             {
                 return View(db.Components.Include(x=>x.Category).ToList());
             }
-            return View(db.Components.Include(x => x.Category).Where(x=>x.Category.Value==category).ToList());
+            if (!category.IsNullOrWhiteSpace())
+            {
+                return View(db.Components.Include(x => x.Category).Where(x => x.Category.Value == category).ToList());
+            }
+            if (!search.IsNullOrWhiteSpace())
+            {
+                return View(db.Components.Include(x => x.Category).Where(x => x.ComponentName.Contains(search)||x.ComponentInfo.Contains(search)).ToList());
+            }
+            return HttpNotFound();
         }
 
         // GET: Components/Details/5
