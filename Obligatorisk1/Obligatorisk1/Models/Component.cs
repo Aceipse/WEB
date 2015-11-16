@@ -12,6 +12,7 @@ namespace Obligatorisk1.Models
         [Key]
         public int Id { get; set; }
         public List<SpecificComponent> SpecificComponent { get; set; }
+        [Required]
         public string ComponentName { get; set; }
         public string ComponentInfo { get; set; }
         public int CategoryId { get; set; }

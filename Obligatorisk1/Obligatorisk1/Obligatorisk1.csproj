@@ -183,6 +183,14 @@
     <Compile Include="Migrations\201511111320043_addedimagemimetype.Designer.cs">
       <DependentUpon>201511111320043_addedimagemimetype.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511161328543_addedRequiredFields.cs" />
+    <Compile Include="Migrations\201511161328543_addedRequiredFields.Designer.cs">
+      <DependentUpon>201511161328543_addedRequiredFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511161333209_addedRequiredFields1.cs" />
+    <Compile Include="Migrations\201511161333209_addedRequiredFields1.Designer.cs">
+      <DependentUpon>201511161333209_addedRequiredFields1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -286,6 +294,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511111320043_addedimagemimetype.resx">
       <DependentUpon>201511111320043_addedimagemimetype.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511161328543_addedRequiredFields.resx">
+      <DependentUpon>201511161328543_addedRequiredFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511161333209_addedRequiredFields1.resx">
+      <DependentUpon>201511161333209_addedRequiredFields1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
