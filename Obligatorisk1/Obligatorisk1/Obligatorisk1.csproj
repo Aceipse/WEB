@@ -209,6 +209,7 @@
     <Content Include="Gruntfile.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="201270976 %282%29.PublishSettings" />
     <None Include="Properties\PublishProfiles\201270976.pubxml" />
     <Content Include="Content\Site.less" />
     <Content Include="package.json" />
@@ -263,7 +264,6 @@
     <Content Include="Views\Components\Index.cshtml" />
     <Content Include="Views\Categories\Create.cshtml" />
     <Content Include="Views\Categories\Delete.cshtml" />
-    <Content Include="Views\Categories\Details.cshtml" />
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
     <None Include="Views\Components\Lend.cshtml" />
