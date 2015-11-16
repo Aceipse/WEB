@@ -160,7 +160,7 @@ namespace Obligatorisk1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Component component = db.Components.Include(x => x.SpecificComponent).First(x => x.Id == id);
+            Component component = db.Components.Include("SpecificComponent.LoanInformation").First(x => x.Id == id);
             
             if (component == null)
             {
@@ -181,11 +181,14 @@ namespace Obligatorisk1.Controllers
             }
         }
 
-        public ActionResult EditLoanInformation(int componentId, LoanInformation loan)
+        public ActionResult EditLoanInformation(int componentId, int specificId, LoanInformation loanInformation)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(loan).State = EntityState.Modified;
+                Component component = db.Components.Include(x => x.SpecificComponent).First(x => x.Id == componentId);
+                SpecificComponent spComp = component.SpecificComponent.First(x => x.Id == specificId);
+                spComp.LoanInformation = loanInformation;
+                db.Entry(component).State = EntityState.Modified;
                 db.SaveChanges();
             }
             return RedirectToAction("Lend", new { id = componentId });
