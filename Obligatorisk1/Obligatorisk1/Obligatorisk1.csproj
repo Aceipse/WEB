@@ -217,7 +217,6 @@
     <Content Include="Gruntfile.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="201270976 %282%29.PublishSettings" />
     <None Include="Properties\PublishProfiles\201270976.pubxml" />
     <Content Include="Content\Site.less" />
     <Content Include="package.json" />
