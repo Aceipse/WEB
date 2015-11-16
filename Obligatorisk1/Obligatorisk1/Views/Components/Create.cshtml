@@ -66,7 +66,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Component.SpecificComponent, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="text" id="componentNumber"/>
+                <input type="number" id="componentNumber"/>
                 <input type="text" id="serieNumber"/>
                 <textarea hidden name="SpecificComponentListAsJson" id="specificComponentId"></textarea>
                 <input type="button" onclick="addSpecificComponent()" value="Add"/>

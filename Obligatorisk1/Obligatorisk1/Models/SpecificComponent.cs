@@ -6,7 +6,9 @@ namespace Obligatorisk1.Models
     {
         [Key]
         public int Id { get; set; }
+        [Required]
         public int ComponentNumber { get; set; }
+        [Required]
         public string SerieNr { get; set; }
         public LoanInformation LoanInformation { get; set; }
     }
