@@ -21,7 +21,7 @@ namespace Obligatorisk1.Controllers
         // GET: Components
         public ActionResult Index(string category, string search)
         {
-            ViewBag.Categories = db.Categories.AsNoTracking().ToList();
+            ViewBag.Categories = db.Categories.AsNoTracking().ToList().OrderBy(x=>x.Value);
             if (category.IsNullOrWhiteSpace() && search.IsNullOrWhiteSpace())
             {
                 return View(db.Components.Include(x => x.Category).Include("SpecificComponent.LoanInformation").ToList());
@@ -70,7 +70,8 @@ namespace Obligatorisk1.Controllers
             if (ModelState.IsValid)
             {
                 componentVm.Component.SpecificComponent = new List<SpecificComponent>();
-                componentVm.Component.SpecificComponent = new JavaScriptSerializer().Deserialize<List<SpecificComponent>>(componentVm.SpecificComponentListAsJson);
+                if(componentVm.SpecificComponentListAsJson!=null)
+                    componentVm.Component.SpecificComponent = new JavaScriptSerializer().Deserialize<List<SpecificComponent>>(componentVm.SpecificComponentListAsJson);
 
                 if (componentVm.Image != null)
                 {

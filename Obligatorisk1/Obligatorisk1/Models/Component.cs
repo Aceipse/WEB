@@ -21,10 +21,12 @@ namespace Obligatorisk1.Models
         public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
+        [DataType(DataType.Url, ErrorMessage = "Datasheet url is invalid")]
         public string Datasheet { get; set; }
         public byte[] Image { get; set; }
         public string ImageMimeType { get; set; }
         [Display(Name = "Manufacturer link")]
+        [DataType(DataType.Url, ErrorMessage = "Manufacturer url is invalid")]
         public string ManufacturerLink { get; set; }
         public List<ComponentComment> ComponentComments { get; set; }
     }
