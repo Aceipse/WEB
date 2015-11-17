@@ -18,6 +18,10 @@ namespace Obligatorisk1.Controllers
     {
         private DatabaseContext db = new DatabaseContext();
 
+        public ComponentsController(DatabaseContext dbContext)
+        {
+            db = dbContext;
+        }
         // GET: Components
         public ActionResult Index(string category, string search)
         {

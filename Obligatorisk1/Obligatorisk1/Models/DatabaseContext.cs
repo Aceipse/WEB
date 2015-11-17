@@ -12,11 +12,11 @@ namespace Obligatorisk1.Models
         {
             this.Configuration.LazyLoadingEnabled = false;
         }
-        public IDbSet<Component> Components { get; set; }
+        public virtual IDbSet<Component> Components { get; set; }
         public IDbSet<LoanInformation> LoanInformations { get; set; }
         public IDbSet<User> Users { get; set; }
         public IDbSet<SpecificComponent> SpecificComponents { get; set; }
 
-        public System.Data.Entity.DbSet<Obligatorisk1.Models.Category> Categories { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
     }
 }
