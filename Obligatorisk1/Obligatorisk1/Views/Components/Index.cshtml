@@ -7,7 +7,7 @@
 }
 
 <h3 class="text-center">Components</h3>
-<div class="col-md-2">
+<div class="col-md-2 box">
     <br/>
     <br/>
     <span class="label label-primary">Categories</span>
@@ -86,7 +86,11 @@
                         @Html.DisplayFor(modelItem => item.Category.Value)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ComponentInfo)
+                       @Html.DisplayFor(modelItem => item.ComponentInfo).ToString().Substring(0, Math.Min(item.ComponentInfo.Length, 40))
+                        @if (item.ComponentInfo.Length > 40)
+                        {
+                            @:...
+                        }
                     </td>
                     <td>
                         @if (item.Datasheet!=null)
