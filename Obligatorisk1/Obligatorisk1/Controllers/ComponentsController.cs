@@ -24,7 +24,7 @@ namespace Obligatorisk1.Controllers
             ViewBag.Categories = db.Categories.AsNoTracking().ToList();
             if (category.IsNullOrWhiteSpace() && search.IsNullOrWhiteSpace())
             {
-                return View(db.Components.Include(x=>x.Category).Include("SpecificComponent.LoanInformation").ToList());
+                return View(db.Components.Include(x => x.Category).Include("SpecificComponent.LoanInformation").ToList());
             }
             if (!category.IsNullOrWhiteSpace())
             {
@@ -32,7 +32,7 @@ namespace Obligatorisk1.Controllers
             }
             if (!search.IsNullOrWhiteSpace())
             {
-                return View(db.Components.Include(x => x.Category).Include("SpecificComponent.LoanInformation").Where(x => x.ComponentName.Contains(search)||x.ComponentInfo.Contains(search)).ToList());
+                return View(db.Components.Include(x => x.Category).Include("SpecificComponent.LoanInformation").Where(x => x.ComponentName.Contains(search) || x.ComponentInfo.Contains(search)).ToList());
             }
             return HttpNotFound();
         }
@@ -66,7 +66,7 @@ namespace Obligatorisk1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateComponentViewmodel componentVm)
         {
-            
+
             if (ModelState.IsValid)
             {
                 componentVm.Component.SpecificComponent = new List<SpecificComponent>();
@@ -93,7 +93,7 @@ namespace Obligatorisk1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Component component = db.Components.Include(x=>x.SpecificComponent).First(x=>x.Id==id);
+            Component component = db.Components.Include(x => x.SpecificComponent).First(x => x.Id == id);
             if (component == null)
             {
                 return HttpNotFound();
@@ -146,7 +146,7 @@ namespace Obligatorisk1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Component component = db.Components.Include(x=>x.SpecificComponent).Include(x=>x.Category).FirstOrDefault(x=>x.Id==id);
+            Component component = db.Components.Include(x => x.SpecificComponent).Include(x => x.Category).FirstOrDefault(x => x.Id == id);
             db.Components.Remove(component);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -167,8 +167,8 @@ namespace Obligatorisk1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Component component = db.Components.Include("SpecificComponent.LoanInformation").First(x => x.Id == id);
-            
+            Component component = db.Components.Include("SpecificComponent.LoanInformation").Include("SpecificComponent.LoanInformation.User").First(x => x.Id == id);
+
             if (component == null)
             {
                 return HttpNotFound();
@@ -192,10 +192,22 @@ namespace Obligatorisk1.Controllers
         {
             if (ModelState.IsValid)
             {
-                Component component = db.Components.Include(x => x.SpecificComponent).First(x => x.Id == componentId);
+                Component component = db.Components.Include(x => x.SpecificComponent).Include("SpecificComponent.LoanInformation.User").First(x => x.Id == componentId);
                 SpecificComponent spComp = component.SpecificComponent.First(x => x.Id == specificId);
-                spComp.LoanInformation = loanInformation;
+
+                if (loanInformation.User == null)
+                {
+                    int UserId = spComp.LoanInformation.User.Id;
+                    db.LoanInformations.Remove(spComp.LoanInformation);
+                    db.Users.Remove(db.Users.First(x => x.Id == UserId));
+                }
+                else
+                {
+                    spComp.LoanInformation = loanInformation;
+                }
+
                 db.Entry(component).State = EntityState.Modified;
+
                 db.SaveChanges();
             }
             return RedirectToAction("Lend", new { id = componentId });
