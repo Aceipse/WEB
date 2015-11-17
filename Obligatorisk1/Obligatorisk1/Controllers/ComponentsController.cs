@@ -18,6 +18,9 @@ namespace Obligatorisk1.Controllers
     {
         private DatabaseContext db = new DatabaseContext();
 
+        public ComponentsController()
+        {
+        }
         public ComponentsController(DatabaseContext dbContext)
         {
             db = dbContext;
