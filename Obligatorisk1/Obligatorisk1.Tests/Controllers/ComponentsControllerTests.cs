@@ -100,7 +100,7 @@ namespace Obligatorisk1.Controllers.Tests
 
             var result = controller.Create(vModel);
 
-            mockContext.Verify(x => x.Components.Add(It.IsAny<Component>()),Times.Exactly(1));
+            mockComSet.Verify(x => x.Add(It.IsAny<Component>()),Times.Exactly(1));
            
         }
     }
