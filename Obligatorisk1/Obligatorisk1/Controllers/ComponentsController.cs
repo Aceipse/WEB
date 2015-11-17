@@ -190,14 +190,15 @@ namespace Obligatorisk1.Controllers
 
                 if (loanInformation.User == null)
                 {
+                    int UserId = spComp.LoanInformation.User.Id;
                     db.LoanInformations.Remove(spComp.LoanInformation);
-                    db.Users.Remove(spComp.LoanInformation.User);
-                    spComp.LoanInformation = null;
+                    db.Users.Remove(db.Users.First(x => x.Id == UserId));
                 }
                 else
                 {
                     spComp.LoanInformation = loanInformation;
                 }
+
                 db.Entry(component).State = EntityState.Modified;
 
                 db.SaveChanges();
