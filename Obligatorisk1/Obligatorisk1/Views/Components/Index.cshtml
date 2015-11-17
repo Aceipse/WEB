@@ -100,23 +100,24 @@
                         
                     </td>
                     <td onclick="toggleDropdown(@item.Id)">
+                        <span class="glyphicon glyphicon-option-vertical"></span>
                         <div class="dropdown" style="margin-left: -150px">
-                            <button  class="btn btn-default dropdown-toggles hidden" type="button" id="@string.Format("dropdown{0}", item.Id)" data-toggle="dropdown">
+                            <button class="btn btn-default dropdown-toggles hidden" type="button" id="@string.Format("dropdown{0}", item.Id)" data-toggle="dropdown">
                                 Options
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <li>
-                                @Html.ActionLink("Edit", "Edit", new {id = item.Id})
-                            </li>
-                            <li>
-                                @Html.ActionLink("Details", "Details", new { id = item.Id })
-                            </li>
-                            <li>
-                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                            </li>
                                 <li>
-                                    @Html.ActionLink("Lend", "Lend", new { id = item.Id })
+                                    @Html.ActionLink("Edit", "Edit", new {id = item.Id})
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Details", "Details", new {id = item.Id})
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Delete", "Delete", new {id = item.Id})
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Lend", "Lend", new {id = item.Id})
                                 </li>
                             </ul>
                         </div>
@@ -133,7 +134,9 @@
     }
 </div>
 <script>
-    var toggleDropdown=function(dropdownid) {
-        $("#dropdown" + dropdownid).dropdown("toggle");
+    var toggleDropdown = function (dropdownid) {
+        event.stopPropagation();
+        var mydropdown = $("#dropdown" + dropdownid);
+        mydropdown.dropdown("toggle");
     }
 </script>
