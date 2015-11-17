@@ -16,16 +16,16 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.Component.ComponentName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Component.ComponentName, htmlAttributes: new { @class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Component.ComponentName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Component.ComponentName, new { htmlAttributes = new { @class = "form-control", placeholder = "Component name" } })
                 @Html.ValidationMessageFor(model => model.Component.ComponentName, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Component.Category, htmlAttributes: new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.Component.Category, htmlAttributes: new {@class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Component.CategoryId, new SelectList(ViewBag.Categories, "Id", "Value"))
+                @Html.DropDownListFor(model => model.Component.CategoryId, new SelectList(ViewBag.Categories, "Id", "Value"),new { htmlAttributes = new { @class = "form-control"} })
                 @*@Html.EditorFor(model => model.Category.Value, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.Component.Category, "", new {@class = "text-danger"})
             </div>
@@ -34,7 +34,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Component.ComponentInfo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Component.ComponentInfo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Component.ComponentInfo, new { htmlAttributes = new { @class = "form-control", placeholder = "Component info" } })
                 @Html.ValidationMessageFor(model => model.Component.ComponentInfo, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -42,7 +42,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Component.Datasheet, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Component.Datasheet, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Component.Datasheet, new { htmlAttributes = new { @class = "form-control", placeholder = "Datasheet" } })
                 @Html.ValidationMessageFor(model => model.Component.Datasheet, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -58,7 +58,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Component.ManufacturerLink, htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Component.ManufacturerLink, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.EditorFor(model => model.Component.ManufacturerLink, new {htmlAttributes = new {@class = "form-control", placeholder = "Manufacturer link" } })
                 @Html.ValidationMessageFor(model => model.Component.ManufacturerLink, "", new {@class = "text-danger"})
             </div>
         </div>
@@ -66,10 +66,10 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Component.SpecificComponent, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="number" id="componentNumber"/>
-                <input type="text" id="serieNumber"/>
+                <input type="number" id="componentNumber" placeholder="Component number" class="form-control col-xs-2"/>
+                <input type="text" id="serieNumber" placeholder="Serial number" class="form-control col-xs-2"/>
                 <textarea hidden name="SpecificComponentListAsJson" id="specificComponentId"></textarea>
-                <input type="button" onclick="addSpecificComponent()" value="Add"/>
+                <input type="button" onclick="addSpecificComponent()" value="Add" class="btn btn-default"/>
             </div>
         </div>
 
@@ -99,7 +99,7 @@
             tableHtml += "<div class='row'>" +
                 "<div class='col-md-4'>" + specificComponentArray[i].ComponentNumber + "</div>" +
                 "<div class='col-md-4'>" + specificComponentArray[i].SerieNr + "</div>" +
-                "<div class='col-md-4'><button onclick='deleteSpecific(" + i + ")' type='button'>Delete specific</button></div></div>";
+                "<div class='col-md-4'><button onclick='deleteSpecific(" + i + ")' type='button' class='btn btn-default'>Delete specific</button></div></div>";
         }
         tableHtml += "</div>";
         $("#specificComponentsTable").html(tableHtml);

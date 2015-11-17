@@ -17,6 +17,13 @@
         <dd>
             @Html.DisplayFor(model => model.ComponentName)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.Value)
+        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.ComponentInfo)
@@ -39,7 +46,13 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Image)
+            @if (Model.Image != null)
+            {
+                <div class="pull-left" style="margin-right: 10px">
+                    <img class="img-thumbnail" width="75" height="75"
+                         src="@Url.Action("GetImage", "Components",new {componentId= Model.Id })" />
+                </div>
+            }
         </dd>
 
         <dt>
@@ -48,6 +61,40 @@
 
         <dd>
             @Html.DisplayFor(model => model.ManufacturerLink)
+        </dd>
+
+        <dt>
+            Specific components:
+        </dt>
+        <dd>
+            <td class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>Component number</th>
+                    <th>Component serial number</th>
+                    <th>Lent out to</th>
+                </tr>
+                @foreach (var specificComponent in Model.SpecificComponent)
+                {
+                    <tr>
+
+                        <td>
+                            @specificComponent.ComponentNumber
+                        </td>
+                        <td>@specificComponent.SerieNr</td>
+                        <td>
+                            @if (specificComponent.LoanInformation != null && specificComponent.LoanInformation.User != null)
+                            {
+                                @specificComponent.LoanInformation.User.StudieNumber
+                            }
+                            else
+                            {
+                               @:No one
+                            }</td>
+
+                    </tr>
+                }
+            </table>
         </dd>
 
     </dl>

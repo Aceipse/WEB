@@ -11,9 +11,12 @@ namespace Obligatorisk1.Models
     {
         [Key]
         public int Id { get; set; }
+        [Display(Name = "Specific components")]
         public List<SpecificComponent> SpecificComponent { get; set; }
         [Required]
+        [Display(Name = "Component name")]
         public string ComponentName { get; set; }
+        [Display(Name = "Component Info")]
         public string ComponentInfo { get; set; }
         public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]
@@ -21,6 +24,7 @@ namespace Obligatorisk1.Models
         public string Datasheet { get; set; }
         public byte[] Image { get; set; }
         public string ImageMimeType { get; set; }
+        [Display(Name = "Manufacturer link")]
         public string ManufacturerLink { get; set; }
         public List<ComponentComment> ComponentComments { get; set; }
     }

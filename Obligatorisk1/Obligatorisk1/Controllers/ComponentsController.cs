@@ -44,7 +44,7 @@ namespace Obligatorisk1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Component component = db.Components.Find(id);
+            Component component = db.Components.Include(x => x.Category).Include("SpecificComponent.LoanInformation.User").FirstOrDefault(x=>x.Id==id);
             if (component == null)
             {
                 return HttpNotFound();
@@ -99,7 +99,8 @@ namespace Obligatorisk1.Controllers
                 return HttpNotFound();
             }
             ViewBag.Categories = db.Categories.AsNoTracking().ToList();
-            return View(component);
+
+            return View(new CreateComponentViewmodel(component));
         }
 
         // POST: Components/Edit/5
@@ -107,16 +108,22 @@ namespace Obligatorisk1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ComponentName,ComponentInfo,Datasheet,Image,ManufacturerLink,CategoryId")] Component component)
+        public ActionResult Edit(CreateComponentViewmodel componentVm)
         {
 
             if (ModelState.IsValid)
             {
-                db.Entry(component).State = EntityState.Modified;
+                if (componentVm.Image != null)
+                {
+                    componentVm.Component.ImageMimeType = componentVm.Image.ContentType;
+                    componentVm.Component.Image = new byte[componentVm.Image.ContentLength];
+                    componentVm.Image.InputStream.Read(componentVm.Component.Image, 0, componentVm.Image.ContentLength);
+                }
+                db.Entry(componentVm.Component).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(component);
+            return View(componentVm);
         }
 
         // GET: Components/Delete/5
