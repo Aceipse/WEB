@@ -7,15 +7,17 @@
 }
 
 <h3 class="text-center">Components</h3>
-<div class="col-md-2">
+<div class="col-md-2 box">
+    <br/>
+    <br/>
     <span class="label label-primary">Categories</span>
     <div class="row">
-        @Html.ActionLink("All", "Index",null, new { @class = "list-group-item" })
+        @Html.ActionLink("All", "Index", null, new {@class = "list-group-item"})
     </div>
     @foreach (Category category in ViewBag.Categories)
     {
         <div class="row">
-            @Html.ActionLink(category.Value, "Index", new { category = category.Value }, new { @class = "list-group-item" })
+            @Html.ActionLink(category.Value, "Index", new {category = category.Value}, new {@class = "list-group-item"})
         </div>
 
     }
@@ -23,21 +25,23 @@
 
 <div class="col-md-10">
 
-
-    <div class="text-center">
-        <form>
-            <input type="text" name="search"/>
-            <button class="btn btn-default" type="submit">Search</button>
-            @Html.ActionLink("Clear search", "Index", null, new {@class = "btn btn-default"})
-        </form>
-    </div>
-
+    <form>
+        <div class="input-group col-md-offset-3 col-md-5">
+            <input type="text" name="search" class="form-control"/>
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="submit">Search</button>
+                @Html.ActionLink("Clear", "Index", null, new {@class = "btn btn-default"})
+            </span>
+        </div>
+    </form>
     @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default" })
     @if (Model.Any())
     {
 
-        <table class="table">
+        <table class="table table-responsive">
             <tr>
+                <th>
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.ComponentName)
                 </th>
@@ -50,9 +54,7 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Datasheet)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Image)
-                </th>
+
                 <th>
                     @Html.DisplayNameFor(model => model.ManufacturerLink)
                 </th>
@@ -68,29 +70,49 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>
+                    <td class="columnB">
+                        @if (item.Image != null)
+                        {
+                            <div class="pull-left" style="margin-right: 10px">
+                                <img class="img-thumbnail" width="150" height="150"
+                                     src="@Url.Action("GetImage", "Components", new {componentId = item.Id})" />
+                            </div>
+                        }
+                    </td>
+                    <td class="columnC">
                         @Html.DisplayFor(modelItem => item.ComponentName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Category.Value)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ComponentInfo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Datasheet)
-                    </td>
-                    <td>
-                        @if (item.Image != null)
+                       @Html.DisplayFor(modelItem => item.ComponentInfo).ToString().Substring(0, Math.Min(item.ComponentInfo.Length, 40))
+                        @if (item.ComponentInfo.Length > 40)
                         {
-                            <div class="pull-left" style="margin-right: 10px">
-                                <img class="img-thumbnail" width="75" height="75"
-                                     src="@Url.Action("GetImage", "Components", new {componentId = item.Id})"/>
-                            </div>
+                            @:...
                         }
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ManufacturerLink)
+                        @if (item.Datasheet!=null)
+                        {
+                            <a href="@item.Datasheet">Datasheet</a>
+                        }
+                        else
+                        {
+                            <p> None</p>
+                        }
+                    </td>
+
+                    <td>
+                        @if (item.ManufacturerLink != null)
+                        {
+                            <a href="@item.ManufacturerLink">Manufacturer link</a>
+                        }
+                        else
+                        {
+                            <p> None</p>
+                        }
+
                     </td>
                     <td>
                         @item.SpecificComponent.Count(x => x.LoanInformation == null || x.LoanInformation.LoanDate == null)

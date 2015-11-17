@@ -1,4 +1,6 @@
-﻿body {
+﻿@base: blue;
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -21,4 +23,18 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+//taken from : http://lesscss.org/
+.box-shadow(@style, @c) when (iscolor(@c)) {
+  -webkit-box-shadow: @style @c;
+  box-shadow:         @style @c;
+}
+.box-shadow(@style, @alpha: 50%) when (isnumber(@alpha)) {
+  .box-shadow(@style, rgba(0, 0, 0, @alpha));
+}
+.box {
+  color: saturate(@base, 5%);
+  border-color: lighten(@base, 30%);
+  div { .box-shadow(0 0 5px, 30%) }
 }
