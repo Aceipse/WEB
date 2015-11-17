@@ -36,7 +36,10 @@
             @Html.DisplayFor(modelItem => item.IsAdmin)
         </td>
         <td>
-            @Html.ActionLink("Promote to admin", "MakeAdmin", new { id=item.User.Id })
+            @if (item.IsAdmin == false)
+            {
+                @Html.ActionLink("Promote to admin", "MakeAdmin", new { id = item.User.Id })
+            }
         </td>
     </tr>
 }
