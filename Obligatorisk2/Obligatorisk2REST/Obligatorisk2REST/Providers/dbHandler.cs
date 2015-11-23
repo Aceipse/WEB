@@ -17,7 +17,7 @@ namespace Obligatorisk2REST
         {
             var connection = ConfigurationManager.AppSettings["mongoString"];
             var client = new MongoClient(connection);
-            _db = client.GetDatabase("Ob2");
+            _db = client.GetDatabase("MongoLab-qq");
         }
 
         public IMongoDatabase getDb()

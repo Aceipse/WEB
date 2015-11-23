@@ -32,6 +32,7 @@ namespace Obligatorisk2REST.Controllers
         // POST: api/User
         public void Post([FromBody]string value)
         {
+            
             _db.GetCollection<User>("User").InsertOneAsync(new User() {Name = "Martin"}).Wait();
         }
 
