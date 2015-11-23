@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Obligatorisk2REST", "Obligatorisk2REST\Obligatorisk2REST.csproj", "{E26B5A6E-B6C2-430D-9399-8D3A03F1F2B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Obligatorisk2REST.Tests", "Obligatorisk2REST.Tests\Obligatorisk2REST.Tests.csproj", "{8E186B4F-22D1-413A-AC2D-F75B07B67C7C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{7B399EF7-BCC9-4CAF-B7F8-7AE089F1AF5F}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\AzureVMPublishModule.psm1 = PublishScripts\AzureVMPublishModule.psm1
+		PublishScripts\Publish-WebApplicationVM.ps1 = PublishScripts\Publish-WebApplicationVM.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configurations", "{61C20F58-A7A3-4380-8AC8-8ACA804F21AE}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Configurations\Obligatorisk2REST-WAWS-dev.json = PublishScripts\Configurations\Obligatorisk2REST-WAWS-dev.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E26B5A6E-B6C2-430D-9399-8D3A03F1F2B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E26B5A6E-B6C2-430D-9399-8D3A03F1F2B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E26B5A6E-B6C2-430D-9399-8D3A03F1F2B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E26B5A6E-B6C2-430D-9399-8D3A03F1F2B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E186B4F-22D1-413A-AC2D-F75B07B67C7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E186B4F-22D1-413A-AC2D-F75B07B67C7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E186B4F-22D1-413A-AC2D-F75B07B67C7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E186B4F-22D1-413A-AC2D-F75B07B67C7C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{61C20F58-A7A3-4380-8AC8-8ACA804F21AE} = {7B399EF7-BCC9-4CAF-B7F8-7AE089F1AF5F}
+	EndGlobalSection
+EndGlobal
