@@ -17,10 +17,7 @@ namespace Obligatorisk2REST
         {
             var connection = ConfigurationManager.AppSettings["mongoString"];
             var client = new MongoClient(connection);
-            _db = client.GetDatabase("wisr");
-
-            //Update script. Tag to Secret:
-            //db.room.update( { }, { $rename: { "Tag": "Secret" } }, { multi: true } )
+            _db = client.GetDatabase("Ob2");
         }
 
         public IMongoDatabase getDb()
