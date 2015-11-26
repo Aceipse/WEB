@@ -12,7 +12,8 @@ namespace Obligatorisk2Angular
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/angular.js",
                         "~/Scripts/Angular/Module.js",
-                        "~/Scripts/Angular/HomeController.js"));
+                        "~/Scripts/Angular/HomeController.js",
+                        "~/Scripts/Angular/FoodDirective.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));

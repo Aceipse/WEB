@@ -158,6 +158,8 @@
     <Content Include="Scripts\angular-touch.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\Angular\Directives\FoodDirective.js" />
+    <Content Include="Scripts\Angular\Directives\UserDirective.js" />
     <Content Include="Scripts\Angular\HomeController.js" />
     <Content Include="Scripts\Angular\Module.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -930,6 +932,8 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Home\FoodView.html" />
+    <Content Include="Views\Home\UserView.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
