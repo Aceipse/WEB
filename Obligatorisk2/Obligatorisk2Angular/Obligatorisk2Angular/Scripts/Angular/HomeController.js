@@ -8,7 +8,8 @@
         var vm = this;
         vm.Name = "It works";
         vm.FoodTypes = [];
-
+        vm.SelectedFoodList = [];
+        vm.addSelectedFood = addSelectedFood;
         activate();
 
         ////////////////////////////////////////////////////////////////
@@ -23,5 +24,11 @@
                 return vm.FoodTypes;
             });
         }
+        function addSelectedFood(selectedFood) {
+            selectedFood.Amount = vm.Amount;
+            selectedFood.TotalProtein = ((vm.Amount) / 100) * selectedFood.Protein;
+            vm.SelectedFoodList.push(selectedFood);
+        }
+
     }
 })();
