@@ -6,13 +6,13 @@
 
     "use strict";
 
-    angular.module("app").directive("FoodDirective", FoodDirective);
+    angular.module("app").directive("food", FoodDirective);
 
     function FoodDirective() {
         var directive = {
             restrict: "EA",
-            templateUrl: 'Views/Home/FoodView.html',
-            controller: HomeController,
+            templateUrl: '/templates/FoodView.html',
+            controller: "HomeController",
             controllerAs: "vm",
             bindToController: true
         };

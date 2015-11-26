@@ -1,0 +1,7 @@
+{
+  "name": "ASP.NET",
+  "private": true,
+  "dependencies": {
+    "angular-material": "^0.11.4"
+  }
+}
