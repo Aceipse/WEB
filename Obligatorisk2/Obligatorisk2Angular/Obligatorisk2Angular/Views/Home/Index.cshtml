@@ -3,7 +3,8 @@
 }
 
 
-<div ng-controller="HomeController as Home">
-    <food></food>
-    <user></user>
+<div ng-controller="HomeController as vm">
+    
+    <food ng-if="vm.FoodTypesLoaded && vm.UserSelected"></food>
+    <user ng-if="vm.UsersLoaded && !vm.UserSelected"></user>
 </div>

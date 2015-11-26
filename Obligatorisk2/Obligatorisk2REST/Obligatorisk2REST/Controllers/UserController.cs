@@ -33,11 +33,12 @@ namespace Obligatorisk2REST.Controllers
         }
 
         // POST: api/User
-        public void Post([FromBody]string value)
+        public string Post([FromBody]string value)
         {
             var user = BsonSerializer.Deserialize<User>(value);
             user.Id = ObjectId.GenerateNewId(DateTime.Now).ToString();
             _db.GetCollection<User>("User").InsertOneAsync(user).Wait();
+            return user.ToJson();
         }
 
         // PUT: api/User/5

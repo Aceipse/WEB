@@ -11,15 +11,15 @@
 
         var service = {
             //Food
-            getFoodTypes: getFoodTypes /*,
+            getFoodTypes: getFoodTypes,/*
             getFoodType: getFoodType,
             postFoodType: postFoodType,
             patchFoodType: patchFoodType,
             deleteFoodType: deleteFoodType,
             //Users
-            getUsers: getUsers,
+            */getUsers: getUsers,/*
             getUser: getUser,
-            postUser: postUser,
+            */postUser: postUser/*,
             patchUser: patchUser,
             deleteUser: deleteUser*/
         }
@@ -28,6 +28,13 @@
 
         function getFoodTypes() {
             return $http.get(restHostName + "api/Food");
+        }
+        function getUsers() {
+            return $http.get(restHostName + "api/User");
+        }
+        function postUser(user) {
+            var stringified = JSON.stringify(user);
+            return $http.post(restHostName + "api/User", "'"+ JSON.stringify(user) +"'");
         }
     }
 
