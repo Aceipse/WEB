@@ -26,7 +26,7 @@
         vm.addSelectedFood = addSelectedFood;
         vm.setCurrentUser = setCurrentUser;
         vm.createUser = createUser;
-        vm.SaveListAndSwapToHistory = SaveListAndSwapToHistory;
+        vm.AddList = AddList;
         activate();
 
         ////////////////////////////////////////////////////////////////
@@ -105,7 +105,7 @@
             }
             var tempFoodCollection={foods:vm.SelectedFoodList,Date:vm.FoodListDate}
             vm.CurrentUser.FoodCollections.push(tempFoodCollection);
-
+            dataservice.patchUser(vm.CurrentUser);
         }
     }
 })();
