@@ -19,8 +19,8 @@
             //Users
             */getUsers: getUsers,/*
             getUser: getUser,
-            */postUser: postUser/*,
-            patchUser: patchUser,
+            */postUser: postUser,
+            patchUser: patchUser/*,
             deleteUser: deleteUser*/
         }
 
@@ -35,6 +35,10 @@
         function postUser(user) {
             var stringified = JSON.stringify(user);
             return $http.post(restHostName + "api/User", "'"+ JSON.stringify(user) +"'");
+        }
+        function patchUser(user) {
+            var stringified = JSON.stringify(user);
+            return $http.patch(restHostName + "api/User", "'" + JSON.stringify(user) + "'");
         }
     }
 

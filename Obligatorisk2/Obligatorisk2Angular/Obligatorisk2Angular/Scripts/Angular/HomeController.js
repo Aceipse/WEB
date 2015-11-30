@@ -19,12 +19,14 @@
         vm.UserSelected = false;
         vm.FoodTypesLoaded = false;
         vm.ReachedProteinIntake = false;
+        vm.ShowHistory = false;
         vm.SelectedFoodList = [];
         vm.calcRequiredProtein = calcRequiredProtein;
         vm.calculateTotalProtein = calculateTotalProtein;
         vm.addSelectedFood = addSelectedFood;
         vm.setCurrentUser = setCurrentUser;
         vm.createUser = createUser;
+        vm.SaveListAndSwapToHistory = SaveListAndSwapToHistory;
         activate();
 
         ////////////////////////////////////////////////////////////////
@@ -96,6 +98,13 @@
                 total += foodList[i].TotalProtein;
             }
             return total;
+        }
+        function SaveListAndSwapToHistory() {
+            if (vm.CurrentUser.FoodCollection === undefined) {
+                vm.CurrentUser.FoodCollection = [];
+            }
+            vm.CurrentUser.FoodCollections.push(vm.SelectedFoodList);
+            vm.ShowHistory = true;
         }
     }
 })();
