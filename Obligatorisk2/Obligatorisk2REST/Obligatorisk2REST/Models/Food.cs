@@ -12,6 +12,6 @@ namespace Obligatorisk2REST.Models
         public string Id { get; set; }
         public string Name { get; set; }
         public decimal Protein { get; set; }
-        public decimal Weight { get; set; }
+        public decimal Amount { get; set; }
     }
 }
