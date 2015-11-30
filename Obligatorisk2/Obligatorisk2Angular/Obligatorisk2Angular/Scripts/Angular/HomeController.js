@@ -99,12 +99,13 @@
             }
             return total;
         }
-        function SaveListAndSwapToHistory() {
-            if (vm.CurrentUser.FoodCollection === undefined) {
-                vm.CurrentUser.FoodCollection = [];
+        function AddList() {
+            if (vm.CurrentUser.FoodCollections === undefined||vm.CurrentUser.FoodCollections===null) {
+                vm.CurrentUser.FoodCollections = [];
             }
-            vm.CurrentUser.FoodCollections.push(vm.SelectedFoodList);
-            vm.ShowHistory = true;
+            var tempFoodCollection={foods:vm.SelectedFoodList,Date:vm.FoodListDate}
+            vm.CurrentUser.FoodCollections.push(tempFoodCollection);
+
         }
     }
 })();

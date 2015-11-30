@@ -1,0 +1,74 @@
+﻿<h2>Select a user</h2>
+<div class="row" ng-cloak>
+    <div class="col-md-3">
+        <md-autocomplete flex
+                         md-items="user in vm.Users|filter:vm.usersearchtext"
+                         md-floating-label="User"
+                         md-selected-item="vm.selectedUser"
+                         md-item-text="user.Name"
+                         md-search-text="vm.usersearchtext">
+            <md-item-template>
+                <span md-highlight-text="ctrl.searchText">{{user.Name}}</span>
+            </md-item-template>
+            <md-not-found>
+                No match
+                <a ng-click="">Create a new one!</a>
+            </md-not-found>
+        </md-autocomplete>
+
+        
+    </div>
+    <div class="col-md-3">
+
+        <md-button class="md-raised" ng-click="vm.setCurrentUser(vm.selectedUser)">Set as selected user</md-button>
+    </div>
+
+    <div class="col-md-6">
+        <table ng-if="vm.selectedUser" class="table">
+            <thead>
+            <th>User name</th>
+            <th>Weight</th>
+            <th>Health status</th>
+            <th>Protein required per day</th>
+            </thead>
+            <tr>
+                <td>{{vm.selectedUser.Name}}</td>
+                <td>{{vm.selectedUser.Weight}}</td>
+                <td>{{vm.selectedUser.HealthState}}</td>
+                <td>{{vm.calcRequiredProtein(vm.selectedUser)}}</td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+<h2>Or create a new user</h2>
+<div class="row">
+    <div class="col-md-3">
+        <md-input-container>
+            <label>Name</label>
+            <input ng-model="vm.UserName">
+        </md-input-container>
+    </div>
+    <div class="col-md-3">
+        <md-input-container>
+            <label>Weight</label>
+            <input ng-model="vm.UserWeight">
+        </md-input-container>
+    </div>
+    <div class="col-md-3">
+        <md-input-container>
+            <label>HealthState</label>
+            <md-select ng-model="vm.userHealthState">
+                <md-option ng-repeat="health in vm.HealthStates" value="{{health.value}}">
+                    {{health.value}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+    </div>
+    <div class="col-md-3">
+        <md-button class="md-raised" ng-click="vm.createUser(vm.UserName,vm.UserWeight,vm.userHealthState)">Create this user</md-button>
+    </div>
+    
+    
+    
+</div>

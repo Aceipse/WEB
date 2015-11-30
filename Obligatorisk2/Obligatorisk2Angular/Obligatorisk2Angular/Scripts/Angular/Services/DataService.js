@@ -36,10 +36,12 @@
             var stringified = JSON.stringify(user);
             return $http.post(restHostName + "api/User", "'"+ JSON.stringify(user) +"'");
         }
+
         function patchUser(user) {
             var stringified = JSON.stringify(user);
-            return $http.patch(restHostName + "api/User", "'" + JSON.stringify(user) + "'");
+            return $http.put(restHostName + "api/User", { id: user._id, value: "'" + JSON.stringify(user) + "'" });
         }
+ 
     }
 
 })();

@@ -1,0 +1,78 @@
+﻿<h2> Add food to list</h2>
+<div class="row" style="min-height: 300px; max-height: 300px;overflow:auto">
+    <h3 class="text-center" ng-hide="vm.SelectedFoodList.length"> No food added yet</h3>
+    <table ng-show="vm.SelectedFoodList.length" class="table">
+        <thead>
+        <th>Food name</th>
+        <th>Protein per 100 gram.</th>
+        <th>Amount(gram)</th>
+        <th>Total</th>
+        </thead>
+        <tr ng-repeat="food in vm.SelectedFoodList track by food._id">
+            <td>{{food.Name}}</td>
+            <td>{{food.Protein}}</td>
+            <td>{{food.Amount}}</td>
+            <td>{{food.TotalProtein}}</td>
+        </tr>
+        <tr>
+            <td>Subtotal</td>
+            <td></td>
+            <td></td>
+            <td>{{vm.calculateTotalProtein(vm.SelectedFoodList)}}</td>
+        </tr>
+        <tr ng-class="{danger:!vm.ReachedProteinIntake,success:vm.ReachedProteinIntake}">
+            <td>Goal</td>
+            <td></td>
+            <td></td>
+            <td>>{{vm.calcRequiredProtein(vm.CurrentUser)}}</td>
+        </tr>
+    </table>
+</div>
+<div class="row" ng-cloak>
+    <div class="col-md-offset-3 col-md-3">
+        <md-autocomplete flex
+                         md-items="food in vm.FoodTypes|filter:vm.searchtext"
+                         md-floating-label="Food"
+                         md-selected-item="vm.selectedFood"
+                         md-item-text="food.Name"
+                         md-search-text="vm.searchtext">
+            <md-item-template>
+                <span md-highlight-text="ctrl.searchText">{{food.Name}}</span>
+            </md-item-template>
+            <md-not-found>
+                No foodtypes matching: "{{vm.searchtext}}" were found.
+                <a ng-click="">Create a new one!</a>
+            </md-not-found>
+        </md-autocomplete>
+
+
+    </div>
+    <div class="col-md-3">
+        <md-input-container class="md-block">
+            <label>Amount(gram)</label>
+            <input ng-model="vm.Amount">
+        </md-input-container>
+
+    </div>
+    <div class="col-md-2">
+        <md-button class="md-raised" ng-click="vm.addSelectedFood(vm.selectedFood)">Add</md-button>
+    </div>
+    <div class="col-md-1">
+
+
+    </div>
+
+</div>
+
+<div class="row" style='padding: 40px;'>
+    <div class="col-md-offset-3">
+        <div class="col-md-4">
+            <md-datepicker ng-model="vm.FoodListDate" md-placeholder="Enter date for list"></md-datepicker>
+        </div>
+        <div class="col-md-2">
+            <md-button class="md-raised" ng-click="vm.AddList()">Save list</md-button>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+
