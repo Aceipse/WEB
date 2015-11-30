@@ -39,8 +39,8 @@ namespace Obligatorisk2REST.Controllers
             _db.GetCollection<Food>("Food").InsertOneAsync(food).Wait();
         }
 
-        // PUT: api/Food/5
-        public void Put(string id, [FromBody]string value)
+        // PATCH: api/Food/5
+        public void Patch(string id, [FromBody]string value)
         {
             var food = BsonSerializer.Deserialize<Food>(value);
             _db.GetCollection<Food>("Food").FindOneAndReplaceAsync(x => x.Id == id, food).Wait();

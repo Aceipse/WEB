@@ -40,8 +40,8 @@ namespace Obligatorisk2REST.Controllers
             _db.GetCollection<User>("User").InsertOneAsync(user).Wait();
         }
 
-        // PUT: api/User/5
-        public void Put(string id, [FromBody]string value)
+        // PATCH: api/User/5
+        public void Patch(string id, [FromBody]string value)
         {
             var user = BsonSerializer.Deserialize<User>(value);
             _db.GetCollection<User>("User").FindOneAndReplaceAsync(x => x.Id == id,user).Wait();
