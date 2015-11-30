@@ -41,7 +41,6 @@
             </md-item-template>
             <md-not-found>
                 No foodtypes matching: "{{vm.searchtext}}" were found.
-                <a ng-click="">Create a new one!</a>
             </md-not-found>
         </md-autocomplete>
 
@@ -76,3 +75,8 @@
     </div>
 </div>
 
+<h3>Your food history</h3>
+
+<canvas id="line" class="chart chart-line" chart-data="vm.data"
+        chart-labels="vm.labels" chart-legend="true" chart-series="vm.series"
+        chart-click="onClick"></canvas> 
