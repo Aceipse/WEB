@@ -19,7 +19,7 @@
     </div>
     <div class="col-md-3">
 
-        <md-button class="md-raised" ng-click="vm.setCurrentUser(vm.selectedUser)">Set as selected user</md-button>
+        <md-button ng-disabled="!vm.selectedUser" class="md-raised" ng-click="vm.setCurrentUser(vm.selectedUser)">Set as selected user</md-button>
     </div>
 
     <div class="col-md-6">

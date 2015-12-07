@@ -2,9 +2,9 @@
     'use strict';
     angular.module("app").controller("HomeController", HomeController);
 
-    HomeController.$inject = ['dataservice'];
+    HomeController.$inject = ['dataservice','$filter'];
 
-    function HomeController(dataservice) {
+    function HomeController(dataservice,$filter) {
         var vm = this;
         vm.FoodTypes = [];
         vm.Users = [];
@@ -128,18 +128,25 @@
             if (vm.CurrentUser.FoodCollections === null)
                 return;
             var tempLabels=[];
-            var tempData=[[],[]];
-
+            var tempData = [[], []];
+            //ensretning så date står på samme måde i alle objekter
             for (var i = 0; i < vm.CurrentUser.FoodCollections.length; i++) {
-                if (vm.CurrentUser.FoodCollections[i].Date.$date === undefined) {
-                    var date = new Date(vm.CurrentUser.FoodCollections[i].Date);
+                if (vm.CurrentUser.FoodCollections[i].Date.$date !== undefined) {
+                    vm.CurrentUser.FoodCollections[i].Date = new Date(vm.CurrentUser.FoodCollections[i].Date.$date);
+                }
+            }
+            //OrderBy date
+            var orderedLists = $filter('orderBy')(vm.CurrentUser.FoodCollections, 'Date', false);
+            for (var i = 0; i < orderedLists.length; i++) {
+                if (orderedLists[i].Date.$date === undefined) {
+                    var date = new Date(orderedLists[i].Date);
                     tempLabels.push((date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear());
                 } else {
-                    var date = new Date(vm.CurrentUser.FoodCollections[i].Date.$date);
+                    var date = new Date(orderedLists[i].Date.$date);
                     tempLabels.push((date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear());
                 }
                 
-                tempData[0].push(calculateTotalProtein(vm.CurrentUser.FoodCollections[i].Foods));
+                tempData[0].push(calculateTotalProtein(orderedLists[i].Foods));
                 tempData[1].push(calcRequiredProtein(vm.CurrentUser));
             }
 
