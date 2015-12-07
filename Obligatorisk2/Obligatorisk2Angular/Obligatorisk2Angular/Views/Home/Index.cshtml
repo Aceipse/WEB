@@ -3,8 +3,10 @@
 }
 
 
-<div ng-controller="HomeController as vm">
-    
+<div ng-controller="HomeController as vm" ng-cloak>
+    <div ng-hide="vm.UsersLoaded" class="container text-center" style="height: 300px">
+        <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span><label id="loadingLabel" class="">Loading Users...</label>
+    </div>
     <food ng-if="vm.FoodTypesLoaded && vm.UserSelected"></food>
     <user ng-if="vm.UsersLoaded && !vm.UserSelected"></user>
 </div>

@@ -2,9 +2,9 @@
     'use strict';
     angular.module("app").controller("HomeController", HomeController);
 
-    HomeController.$inject = ['dataservice'];
+    HomeController.$inject = ['dataservice','$filter'];
 
-    function HomeController(dataservice) {
+    function HomeController(dataservice,$filter) {
         var vm = this;
         vm.FoodTypes = [];
         vm.Users = [];
@@ -21,6 +21,7 @@
         vm.ReachedProteinIntake = false;
         vm.ShowHistory = false;
         vm.SelectedFoodList = [];
+        vm.UpdateChartValues = updateChartValues;
         vm.calcRequiredProtein = calcRequiredProtein;
         vm.calculateTotalProtein = calculateTotalProtein;
         vm.addSelectedFood = addSelectedFood;
@@ -62,9 +63,12 @@
             });
         }
         function addSelectedFood(selectedFood) {
-            selectedFood.Amount = vm.Amount;
-            selectedFood.TotalProtein = ((vm.Amount) / 100) * selectedFood.Protein;
-            vm.SelectedFoodList.push(selectedFood);
+            //Fixed bug that lists contained same food
+            var temp = angular.copy(selectedFood);
+            temp.Amount = angular.copy(vm.Amount);
+            temp.TotalProtein = ((vm.Amount) / 100) * temp.Protein;
+            
+            vm.SelectedFoodList.push(temp);
 
             if (calculateTotalProtein(vm.SelectedFoodList) > vm.CurrentUsersDailyRequirement)
                 vm.ReachedProteinIntake = true;
@@ -75,9 +79,10 @@
         function setCurrentUser(selectedUser) {
             vm.CurrentUser = selectedUser;
             vm.UserSelected = true;
+            vm.UpdateChartValues();
         }
         function calcRequiredProtein(selectedUser) {
-            vm.CurrentUsersDailyRequirement = (function() {
+           return vm.CurrentUsersDailyRequirement = (function() {
                 switch (selectedUser.HealthState) {
                 case "Normal":
                     return 0.8 * selectedUser.Weight;
@@ -89,13 +94,17 @@
                     return 100;
                 }
 
-            })();
-            return vm.CurrentUsersDailyRequirement;                     
+            })();                     
         }
         function calculateTotalProtein(foodList) {
             var total = 0;
             for (var i = 0; i < foodList.length; i++) {
-                total += foodList[i].TotalProtein;
+               
+                if (foodList[i].TotalProtein === undefined) {
+                    total += (foodList[i].Protein * foodList[i].Amount) / 100;
+                } else {
+                    total += foodList[i].TotalProtein;
+                }
             }
             return total;
         }
@@ -103,9 +112,50 @@
             if (vm.CurrentUser.FoodCollections === undefined||vm.CurrentUser.FoodCollections===null) {
                 vm.CurrentUser.FoodCollections = [];
             }
-            var tempFoodCollection={foods:vm.SelectedFoodList,Date:vm.FoodListDate}
+            var tempFoodCollection = { Foods: vm.SelectedFoodList, Date: vm.FoodListDate }
+            //exclude non needed propteries
+            for (var i = 0; i < tempFoodCollection.Foods.length; i++) {
+                tempFoodCollection.Foods[i].TotalProtein = undefined;
+            }
+            tempFoodCollection.TotalProtein = undefined;
             vm.CurrentUser.FoodCollections.push(tempFoodCollection);
+            vm.UpdateChartValues();
+            vm.SelectedFoodList = [];
+            vm.selectedFood = [];
             dataservice.patchUser(vm.CurrentUser);
+        }
+        function updateChartValues() {
+            if (vm.CurrentUser.FoodCollections === null)
+                return;
+            var tempLabels=[];
+            var tempData = [[], []];
+            //ensretning så date står på samme måde i alle objekter
+            for (var i = 0; i < vm.CurrentUser.FoodCollections.length; i++) {
+                if (vm.CurrentUser.FoodCollections[i].Date.$date !== undefined) {
+                    vm.CurrentUser.FoodCollections[i].Date = new Date(vm.CurrentUser.FoodCollections[i].Date.$date);
+                }
+            }
+            //OrderBy date
+            var orderedLists = $filter('orderBy')(vm.CurrentUser.FoodCollections, 'Date', false);
+            for (var i = 0; i < orderedLists.length; i++) {
+                if (orderedLists[i].Date.$date === undefined) {
+                    var date = new Date(orderedLists[i].Date);
+                    tempLabels.push((date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear());
+                } else {
+                    var date = new Date(orderedLists[i].Date.$date);
+                    tempLabels.push((date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear());
+                }
+                
+                tempData[0].push(calculateTotalProtein(orderedLists[i].Foods));
+                tempData[1].push(calcRequiredProtein(vm.CurrentUser));
+            }
+
+            vm.labels = tempLabels;
+            vm.series = ['Obtained', 'Goal'];
+            vm.data = tempData;
         }
     }
 })();
+
+
+

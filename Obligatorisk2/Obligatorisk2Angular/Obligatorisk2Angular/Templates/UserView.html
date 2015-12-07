@@ -12,7 +12,6 @@
             </md-item-template>
             <md-not-found>
                 No match
-                <a ng-click="">Create a new one!</a>
             </md-not-found>
         </md-autocomplete>
 
@@ -20,14 +19,14 @@
     </div>
     <div class="col-md-3">
 
-        <md-button class="md-raised" ng-click="vm.setCurrentUser(vm.selectedUser)">Set as selected user</md-button>
+        <md-button ng-disabled="!vm.selectedUser" class="md-raised" ng-click="vm.setCurrentUser(vm.selectedUser)">Set as selected user</md-button>
     </div>
 
     <div class="col-md-6">
         <table ng-if="vm.selectedUser" class="table">
             <thead>
             <th>User name</th>
-            <th>Weight</th>
+            <th>Weight(kg)</th>
             <th>Health status</th>
             <th>Protein required per day</th>
             </thead>
@@ -51,7 +50,7 @@
     </div>
     <div class="col-md-3">
         <md-input-container>
-            <label>Weight</label>
+            <label>Weight(kg)</label>
             <input ng-model="vm.UserWeight">
         </md-input-container>
     </div>
