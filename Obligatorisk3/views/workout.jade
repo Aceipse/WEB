@@ -8,6 +8,7 @@ block content
         th= "Number of exercises"
         th= "Done"
         th= "Details"
+        th= "Delete"
         
     tbody
       each workout in Workouts
@@ -18,6 +19,8 @@ block content
             input(type='checkbox')
           td
             a(href="/specificWorkout/"+workout._id) details
+          td
+            a(href="/deleteSpecificWorkout/"+workout._id) delete
 
   h2= "Add new workout program"
   .input-group.col-md-4

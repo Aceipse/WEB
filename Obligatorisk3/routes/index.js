@@ -10,11 +10,6 @@ var homeController=function(req,res){
       
        res.render('index', { Users: fitnessUsers });
     });
-//     var nikolaj=new fitnessUser({name:'aaaaaaj',log:[]})
-//   nikolaj.save(function (err, fluffy) {
-//   if (err) return console.error(err);
-// });
-   // res.render('index', { title: 'Express' });
 }
 
 var workoutController=function(req,res){
@@ -45,25 +40,36 @@ var specificWorkoutController=function(req,res){
 
 }
 
-
-router.get('/workout/:userId', workoutController);
-router.get('/specificWorkout/:workoutId', specificWorkoutController);
-router.get('/', homeController);
-router.post('/workout/:workoutName',function(req,res){
-    var workoutProgram=mongoose.model('workoutProgram');
-     var woProgram=new workoutProgram({name:req.params.workoutName,exercises:[]})
-     woProgram.save(function (err, obj){ 
-        res.end("yes");
-     });
-     
-})
-router.post('/User/:name', function(req, res) {
+var userController = function(req, res) {
     var fitnessUser=mongoose.model('fitnessUser');
      var user=new fitnessUser({name:req.params.name,log:[]})
      user.save(function (err, obj){ 
         res.end("yes");
      });
-     
-});
+}
+
+var addWorkoutController = function(req,res){
+    var workoutProgram=mongoose.model('workoutProgram');
+     var woProgram=new workoutProgram({name:req.params.workoutName,exercises:[]})
+     woProgram.save(function (err, obj){ 
+        res.end("yes");
+     });
+}
+
+var deleteWorkoutController = function(req,res){
+    var workout=mongoose.model('workoutProgram');
+    
+    workout.findByIdAndRemove({'_id':req.params.workoutId},function(err,workout){
+       if (err) return console.error(err);
+       ;
+    });
+}
+
+router.get('/workout/:userId', workoutController);
+router.get('/specificWorkout/:workoutId', specificWorkoutController);
+router.get('/', homeController);
+router.post('/workout/:workoutName',addWorkoutController)
+router.post('/User/:name', userController);
+router.delete('/workout/:workoutId', deleteWorkoutController)
 
 module.exports = router;
