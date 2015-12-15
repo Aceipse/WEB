@@ -21,12 +21,13 @@ var workoutController=function(req,res){
     fitnessUser.findOne({'_id':req.params.userId},function(err,user){
        if (err) return console.error(err);
        userFound = user;
+       workout.find(function(err,workouts){
+        if (err) return console.error(err);
+        res.render('workout', { Workouts: workouts, User: userFound });
+    });
     });
     
-    workout.find(function(err,workouts){
-       if (err) return console.error(err);
-       res.render('workout', { Workouts: workouts, User: userFound });
-    });
+   
 
 }
 
@@ -35,7 +36,7 @@ var specificWorkoutController=function(req,res){
     
     workout.findOne({'_id':req.params.workoutId},function(err,workout){
        if (err) return console.error(err);
-       res.render('specificWorkout', { Workout: workout });
+       res.render('specificWorkout', { Workout: workout,User:req.params.userId });
     });
 
 }
@@ -55,6 +56,17 @@ var addWorkoutController = function(req,res){
         res.end("yes");
      });
 }
+var addExerciseController = function(req,res){
+    var workoutProgram=mongoose.model('workoutProgram');
+    workoutProgram.findOne({'_id':req.params.workoutId},function(err,workout){
+        var exerciseModel=mongoose.model('exercise');
+        var exerciseToAdd=new exerciseModel({name:req.params.exerciseName,description:req.params.exerciseDescription,numberOfSets:req.params.numberOfSets,repetitionsOrTime:req.params.repsOrTime})
+       workout.exercises.push(exerciseToAdd)
+       workout.save(function (err, obj){ 
+        res.end("yes");
+     });
+    });
+}
 
 var deleteWorkoutController = function(req,res){
     var workout=mongoose.model('workoutProgram');
@@ -66,9 +78,10 @@ var deleteWorkoutController = function(req,res){
 }
 
 router.get('/workout/:userId', workoutController);
-router.get('/specificWorkout/:workoutId', specificWorkoutController);
+router.get('/specificWorkout/:workoutId/:userId', specificWorkoutController);
 router.get('/', homeController);
 router.post('/workout/:workoutName',addWorkoutController)
+router.post('/specificWorkout/:workoutId/:exerciseName/:exerciseDescription/:numberOfSets/:repsOrTime',addExerciseController)
 router.post('/User/:name', userController);
 router.delete('/workout/:workoutId', deleteWorkoutController)
 

@@ -1,7 +1,7 @@
 extends layout
 block content
   h1= "Exercises"
-  a(href="/workout") Back to workout programs
+  a(href="/workout/#{User}") Back to workout programs
   table.table
     thead
       tr
@@ -17,3 +17,22 @@ block content
           td=exercise.description
           td=exercise.numberOfSets
           td=exercise.repetitionsOrTime
+  h2= "Add new exercise"
+  .col-md-3
+      input.form-control#exerciseNameInput(type='text',placeholder='Exercise name')
+      input.form-control.col-md-3#exerciseDescriptionInput(type='text',placeholder='Description')
+      input.form-control.col-md-3#numberOfSetsInput(type='number',placeholder='Number of sets')
+      input.form-control.col-md-3#repsOrTimeInput(type='text',placeholder='Repetitions/time')
+      button.btn.btn-primary.col-md-3(onclick='AddExercise()') Add
+  .col-md-9
+  
+  script.
+    var AddExercise = function() {
+      var exerciseName=$("#exerciseNameInput").val();
+      var exerciseDescription=$("#exerciseDescriptionInput").val();
+      var numberOfSets=$("#numberOfSetsInput").val();
+      var repsOrTime=$("#repsOrTimeInput").val();
+       $.post( "/specificWorkout/"+"#{Workout._id}"+"/"+exerciseName+"/"+exerciseDescription+"/"+numberOfSets+"/"+repsOrTime, function() {
+       location.reload();
+       });
+    }
