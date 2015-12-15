@@ -1,0 +1,19 @@
+extends layout
+block content
+  h1= "Exercises"
+  a(href="/workout") Back to workout programs
+  table.table
+    thead
+      tr
+        th= "Name"
+        th= "Description"
+        th= "Set"
+        th= "Gentagelser/tid"
+        
+    tbody
+      each exercise in Workout.exercises
+        tr
+          td=exercise.name
+          td=exercise.description
+          td=exercise.numberOfSets
+          td=exercise.repetitionsOrTime
