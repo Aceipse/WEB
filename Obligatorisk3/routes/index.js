@@ -61,7 +61,7 @@ var deleteWorkoutController = function(req,res){
     
     workout.findByIdAndRemove({'_id':req.params.workoutId},function(err,workout){
        if (err) return console.error(err);
-       ;
+        res.end("yes");
     });
 }
 

@@ -20,7 +20,7 @@ block content
           td
             a(href="/specificWorkout/"+workout._id) details
           td
-            a(href="/deleteSpecificWorkout/"+workout._id) delete
+            input.btn-link(type='button' value='delete' onclick='DeleteWorkout("#{workout._id}")')
 
   h2= "Add new workout program"
   .input-group.col-md-4
@@ -33,4 +33,14 @@ block content
        $.post( "/workout/"+workoutName, function() {
        location.reload();
        });
-    }
+    } 
+    var DeleteWorkout = function(id) {
+      $.ajax({
+      url: '/workout/'+id,
+      type: 'DELETE',
+      success: function(result) {
+        location.reload();
+      }
+    });
+    } 
+    
