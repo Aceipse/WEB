@@ -18,5 +18,13 @@ var homeController=function(req,res){
 }
 /* GET home page. */
 router.get('/', homeController);
+router.post('/User/:name', function(req, res) {
+    var fitnessUser=mongoose.model('fitnessUser');
+     var user=new fitnessUser({name:req.params.name,log:[]})
+     user.save(function (err, obj){ 
+        
+     });
+     res.end("yes");
+});
 
 module.exports = router;

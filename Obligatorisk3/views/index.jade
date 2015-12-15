@@ -1,11 +1,15 @@
 extends layout
 block content
-  - var books = ["A", "B", "C"]
   h1= "Fitness"
-  input.btn-primary(
-  type='button'
-  value='Add User'
-  )
-  select
-    each user, i in Users
-      option(value=i) #{user.name}
+  .row 
+    p Choose user
+    select
+     each user, i in Users
+      option(value=i) #{user.name}¨
+    input.btn-primary(type='button' value='Add User' onclick='AddUser()')
+  script.
+    var AddUser = function() {
+       $.post( "/User/Martin", function() {
+       location.reload();
+       });
+    }
