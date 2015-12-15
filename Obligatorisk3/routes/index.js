@@ -16,7 +16,30 @@ var homeController=function(req,res){
 // });
    // res.render('index', { title: 'Express' });
 }
-/* GET home page. */
+
+var workoutController=function(req,res){
+    var workout=mongoose.model('workoutProgram');
+    
+    workout.find(function(err,workouts){
+       if (err) return console.error(err);
+       res.render('workout', { Workouts: workouts });
+    });
+
+}
+
+var specificWorkoutController=function(req,res){
+    var workout=mongoose.model('workoutProgram');
+    
+    workout.findOne({'_id':req.params.workoutId},function(err,workout){
+       if (err) return console.error(err);
+       res.render('specificWorkout', { Workout: workout });
+    });
+
+}
+
+
+router.get('/workout', workoutController);
+router.get('/specificWorkout/:workoutId', specificWorkoutController);
 router.get('/', homeController);
 router.post('/User/:name', function(req, res) {
     var fitnessUser=mongoose.model('fitnessUser');

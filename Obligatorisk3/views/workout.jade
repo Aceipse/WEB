@@ -1,0 +1,37 @@
+extends layout
+block content
+  h1= "Workout programs"
+  table.table
+    thead
+      tr
+        th= "Name"
+        th= "Number of exercises"
+        th= "Done"
+        th= "Details"
+        
+    tbody
+      each workout in Workouts
+        tr
+          td=workout.name
+          td=workout.exercises.length
+          td
+            input(type='checkbox')
+          td
+            a(href="/specificWorkout/"+workout._id) details
+
+  h2= "Add new workout program"
+  .input-group.col-md-4
+    input.form-control(type='text',placeholder='Workout program name',aria-describedby='basic-addon2')
+    span.input-group-addon#basic-addon2(onclick='something()') Add
+  
+   
+  script.
+    var something = function() {
+      console.log('something')
+      $.ajax({
+        url: "test.html",
+        context: document.body
+      }).done(function() {
+        $( this ).addClass( "done" );
+      });
+    }
