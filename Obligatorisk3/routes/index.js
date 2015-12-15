@@ -49,13 +49,21 @@ var specificWorkoutController=function(req,res){
 router.get('/workout/:userId', workoutController);
 router.get('/specificWorkout/:workoutId', specificWorkoutController);
 router.get('/', homeController);
+router.post('/workout/:workoutName',function(req,res){
+    var workoutProgram=mongoose.model('workoutProgram');
+     var woProgram=new workoutProgram({name:req.params.workoutName,exercises:[]})
+     woProgram.save(function (err, obj){ 
+        res.end("yes");
+     });
+     
+})
 router.post('/User/:name', function(req, res) {
     var fitnessUser=mongoose.model('fitnessUser');
      var user=new fitnessUser({name:req.params.name,log:[]})
      user.save(function (err, obj){ 
-        
+        res.end("yes");
      });
-     res.end("yes");
+     
 });
 
 module.exports = router;

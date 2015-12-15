@@ -21,17 +21,13 @@ block content
 
   h2= "Add new workout program"
   .input-group.col-md-4
-    input.form-control(type='text',placeholder='Workout program name',aria-describedby='basic-addon2')
-    span.input-group-addon#basic-addon2(onclick='something()') Add
+    input.form-control#workoutInputId(type='text',placeholder='Workout program name',aria-describedby='basic-addon2')
+    span.input-group-addon#basic-addon2(onclick='AddWorkout()') Add
   
-   
   script.
-    var something = function() {
-      console.log('something')
-      $.ajax({
-        url: "test.html",
-        context: document.body
-      }).done(function() {
-        $( this ).addClass( "done" );
-      });
+    var AddWorkout = function() {
+      var workoutName=$("#workoutInputId").val();
+       $.post( "/workout/"+workoutName, function() {
+       location.reload();
+       });
     }
