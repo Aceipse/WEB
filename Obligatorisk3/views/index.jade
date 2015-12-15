@@ -6,8 +6,6 @@ block content
   type='button'
   value='Add User'
   )
-  ul
-    each val in Users
-      li=val.name
-  
-   
+  select
+    each user, i in Users
+      option(value=i) #{user.name}
