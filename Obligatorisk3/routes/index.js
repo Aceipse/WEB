@@ -19,10 +19,18 @@ var homeController=function(req,res){
 
 var workoutController=function(req,res){
     var workout=mongoose.model('workoutProgram');
+    var fitnessUser=mongoose.model('fitnessUser');
+    
+    var userFound;
+    
+    fitnessUser.findOne({'_id':req.params.userId},function(err,user){
+       if (err) return console.error(err);
+       userFound = user;
+    });
     
     workout.find(function(err,workouts){
        if (err) return console.error(err);
-       res.render('workout', { Workouts: workouts });
+       res.render('workout', { Workouts: workouts, User: userFound });
     });
 
 }
@@ -38,7 +46,7 @@ var specificWorkoutController=function(req,res){
 }
 
 
-router.get('/workout', workoutController);
+router.get('/workout/:userId', workoutController);
 router.get('/specificWorkout/:workoutId', specificWorkoutController);
 router.get('/', homeController);
 router.post('/User/:name', function(req, res) {

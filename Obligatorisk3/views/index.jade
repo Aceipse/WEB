@@ -1,15 +1,19 @@
 extends layout
 block content
   h1= "Fitness"
+  .row
+     label.col-xs-1 Add User
+     input.col-xs-1(type='text' id='UserName')
+     input.col-xs-1.btn-primary(type='button' value='Add User' onclick='AddUser($("#UserName").val())')
   .row 
-    p Choose user
-    select
+    label.col-xs-1 Or choose user
+    select.col-xs-1(onChange='window.location.href = this.value')
      each user, i in Users
-      option(value=i) #{user.name}¨
-    input.btn-primary(type='button' value='Add User' onclick='AddUser()')
+      option(value='/workout/'+user._id) #{user.name}
+   
   script.
-    var AddUser = function() {
-       $.post( "/User/Martin", function() {
+    var AddUser = function(name) {
+       $.post( "/User/"+name, function() {
        location.reload();
        });
     }
