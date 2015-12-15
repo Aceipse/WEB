@@ -4,8 +4,10 @@ block content
   h1= "Fitness"
   input.btn-primary(
   type='button'
-  value='agreement'
+  value='Add User'
   )
-  select
-    each book, i in books
-      option(value=i) Book #{book}
+  ul
+    each val in Users
+      li=val.name
+  
+   
