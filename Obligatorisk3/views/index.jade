@@ -8,6 +8,7 @@ block content
   .row 
     label.col-xs-1 Or choose user
     select.col-xs-1(onChange='window.location.href = this.value')
+     option(selected disabled)
      each user, i in Users
       option(value='/workout/'+user._id) #{user.name}
    
