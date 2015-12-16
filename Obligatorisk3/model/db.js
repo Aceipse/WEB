@@ -1,5 +1,5 @@
 var mongoose=require('mongoose');
-mongoose.connect('mongodb://aaa:123@ds042128.mongolab.com:42128/MongoLab-qq')
+mongoose.connect('mongodb://aaa:123@ds056288.mongolab.com:56288/Fitness')
 var db=mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function (callback) {

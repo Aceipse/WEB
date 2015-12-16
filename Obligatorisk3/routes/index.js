@@ -85,7 +85,7 @@ var updateUserController = function(req,res){
          
          workoutProgram.findOne({'_id':req.params.workoutId},function(err,workout){
          if (err) return console.error(err);
-         var specificWorkout = workout;
+         var specificWorkout = workout._id;
          fitnessUser.findOne({'_id':req.params.userId},function(err,user){
          if (err) return console.error(err);
          user.log.push(specificWorkout);
