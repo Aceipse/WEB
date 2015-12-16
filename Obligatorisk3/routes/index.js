@@ -78,7 +78,8 @@ var deleteWorkoutController = function(req,res){
 }
 
 var updateUserController = function(req,res){
-    if(req.params.state)
+    //console.log(req.params.state)
+    if(req.params.state!='false')
     {
          var workoutProgram=mongoose.model('workoutProgram');
          var fitnessUser=mongoose.model('fitnessUser');
@@ -101,7 +102,7 @@ var updateUserController = function(req,res){
          fitnessUser.findOne({'_id':req.params.userId},function(err,user){
          if (err) return console.error(err);
          for(var i in user.log){
-          if(user.log[i]._id==req.params.workoutId){
+          if(user.log[i]==req.params.workoutId){
           user.log.splice(i,1);
           break;
           }
