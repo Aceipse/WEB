@@ -17,7 +17,11 @@ block content
           td=workout.name
           td=workout.exercises.length
           td
-            input(type='checkbox')
+            if User.log.indexOf(workout) != -1
+              input(type='checkbox' checked='true' onclick='UpdateUser("#{User._id}","#{workout._id}",this.checked)')
+            else
+              p #{User.log.indexOf(workout)}
+              input(type='checkbox' onclick='UpdateUser("#{User._id}","#{workout._id}",this.checked)')
           td
             a(href="/specificWorkout/"+workout._id+"/#{User._id}") details
           td
@@ -44,4 +48,9 @@ block content
       }
     });
     } 
-    
+    var UpdateUser = function(userId,workoutId,state) {
+      $.post("/User/"+userId+"/"+workoutId+"/"+state, function() {
+       
+       });
+    }
+   

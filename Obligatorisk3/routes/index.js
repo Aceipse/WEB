@@ -77,12 +77,48 @@ var deleteWorkoutController = function(req,res){
     });
 }
 
+var updateUserController = function(req,res){
+    if(req.params.state)
+    {
+         var workoutProgram=mongoose.model('workoutProgram');
+         var fitnessUser=mongoose.model('fitnessUser');
+         
+         workoutProgram.findOne({'_id':req.params.workoutId},function(err,workout){
+         if (err) return console.error(err);
+         var specificWorkout = workout;
+         fitnessUser.findOne({'_id':req.params.userId},function(err,user){
+         if (err) return console.error(err);
+         user.log.push(specificWorkout);
+         user.save();
+         res.end("yes");
+         });
+         
+         });
+    }
+    else
+    {
+        var fitnessUser=mongoose.model('fitnessUser');
+         fitnessUser.findOne({'_id':req.params.userId},function(err,user){
+         if (err) return console.error(err);
+         for(var i in user.log){
+          if(user.log[i]._id==req.params.workoutId){
+          user.log.splice(i,1);
+          break;
+          }
+         }
+         user.save();
+         res.end("yes");
+         });
+    }
+}
+
 router.get('/workout/:userId', workoutController);
 router.get('/specificWorkout/:workoutId/:userId', specificWorkoutController);
 router.get('/', homeController);
-router.post('/workout/:workoutName',addWorkoutController)
-router.post('/specificWorkout/:workoutId/:exerciseName/:exerciseDescription/:numberOfSets/:repsOrTime',addExerciseController)
+router.post('/workout/:workoutName',addWorkoutController);
+router.post('/specificWorkout/:workoutId/:exerciseName/:exerciseDescription/:numberOfSets/:repsOrTime',addExerciseController);
 router.post('/User/:name', userController);
-router.delete('/workout/:workoutId', deleteWorkoutController)
+router.post('/User/:userId/:workoutId/:state',updateUserController);
+router.delete('/workout/:workoutId', deleteWorkoutController);
 
 module.exports = router;
